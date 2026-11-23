@@ -548,6 +548,63 @@
     .form-control { width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; color: #fff; font-size: 0.9rem; transition: border-color 0.2s ease; }
     .form-control:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05); }
     .form-control::placeholder { color: rgba(255, 255, 255, 0.2); }
+    .quick-links, .map-library, .camera-row, .document-choice {display:flex;align-items:center;flex-wrap:wrap;gap:.65rem}
+    .quick-links {margin-top:1rem}
+    .map-library,.document-choice {padding:1rem 1.2rem;border-bottom:1px solid var(--border);background:#0e1725}
+    .map-library label,.document-choice label {font-weight:600;font-size:.9rem}
+    .map-library select,.document-choice select {width:auto;max-width:100%;flex:1 1 14rem;font:inherit;font-size:.88rem}
+    #sampleBtn {min-height:38px}
+    #archiveStatus {font-size:.88rem;color:var(--text-muted);margin-bottom:.65rem}
+    #archiveStatus:empty {display:none}
+    #web-console .console-body {grid-template-columns:minmax(225px,28%) minmax(0,1fr)}
+    .console-sidebar,.canvas-stage,.viewer-container,.viewer-actions>span {min-width:0}
+    .viewer-actions code {overflow-wrap:anywhere}
+    .console-sidebar .console-select {font:inherit;font-size:.88rem}
+    .console-sidebar .console-label {font:600 .8rem Inter,system-ui,sans-serif;letter-spacing:0;text-transform:none}
+    .route-step-item {text-align:left;font-family:inherit;color:#e2eaf4;border:1px solid var(--border);border-left:3px solid #8291be;font-size:.82rem}
+    .route-step-item.portal-elevator {border-left-color:#b4a0fc;color:#ded6ff;background:#242438}
+    .route-step-item.portal-stairs {border-left-color:#ffc56e;color:#ffe1ad;background:#322a1f}
+    .route-step-item.active-step {background:#22443f;border-left-color:#6debd4}
+    #floorButtonsContainer {display:inline-flex;flex:none}
+    #floorSelect {min-width:68px;width:auto;padding:6px;font:600 .84rem Inter,system-ui,sans-serif}
+    [hidden] {display:none!important}
+    .camera-row .btn-action,.camera-row .mode-chip {font:500 .8rem Inter,system-ui,sans-serif}
+    .map-library .btn-action {font:600 .85rem Inter,system-ui,sans-serif}
+    .camera-row button,.map-library button {min-height:34px}
+    .camera-row [aria-pressed="true"] {background:#244b48;color:#b5fbe9;border-color:#458e7d}
+    button:disabled {opacity:.55;cursor:default}
+    :is(button,a,select,canvas):focus-visible {outline:2px solid #a7c6ff;outline-offset:2px}
+    .canvas-statusbar {min-height:36px}
+    .canvas-viewport {min-height:0;flex:1 1 auto}
+    #mapExplorerCanvas,.console-shell:fullscreen #mapExplorerCanvas {position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+    #web-console .canvas-stage {min-height:620px}
+    .canvas-toolbar {align-items:flex-start}
+    .canvas-footer {flex-wrap:wrap;gap:.5rem}
+    .floor-switcher select {max-width:100%}
+    .transit-modal-overlay {align-items:flex-end;background:transparent;backdrop-filter:none;pointer-events:none}
+    .transit-card {pointer-events:auto;max-width:310px;padding:12px 16px;background:#122332;box-shadow:0 4px 18px #07101866;border-color:#466378}
+    .transit-card .transit-title {font:600 1.02rem Inter,system-ui,sans-serif}
+    .transit-card .transit-badge {font-size:.72rem}
+    .transit-card .transit-desc {font: .85rem Inter,system-ui,sans-serif}
+    @media(max-width:880px) {
+      #web-console .console-body {display:flex;flex-direction:column}
+      #web-console .canvas-stage {order:-1;min-height:0}
+      .canvas-viewport {height:clamp(320px,52svh,550px);flex:none}
+      .console-shell:fullscreen {overflow:auto}
+      .console-shell:fullscreen .console-body {height:auto;flex:none}
+      .console-sidebar {border-right:0}
+    }
+    @media(max-width:650px) {
+      header .nav-links {flex-wrap:nowrap;max-width:100%;overflow-x:auto;gap:1rem;font-size:.82rem}
+      .nav-links>* {flex:none}
+      .container {padding-left:14px;padding-right:14px}
+      .map-library,.document-choice,.console-topbar,.canvas-toolbar {padding:.75rem}
+      .map-library select,.document-choice select {flex-basis:100%}
+      .canvas-footer {font-size:.72rem}
+      .iframe-container {height:60svh;min-height:300px}
+    }
+
+
   </style>
 </head>
 <body>
@@ -558,7 +615,7 @@
     <div class="container header-inner">
       <div class="brand">
         <span class="title-gradient">IndoorPulse</span>
-        <span class="status-indicator"><span class="status-dot"></span>System Active</span>
+        <span class="status-indicator"><span class="status-dot"></span>Team Navix</span>
       </div>
       <nav class="nav-links">
         <a href="#presentation">Deliverables</a>
@@ -575,14 +632,15 @@
   <main class="container">
 
     <div class="summary-block">
-      <h1 class="summary-title">IndoorPulse: Infrastructure-Free Indoor Positioning</h1>
-      <p class="summary-subtitle">Offline-first Android indoor navigation powered by native IMU Pedestrian Dead Reckoning (PDR), a 400-Particle Monte Carlo Localization Filter, multi-floor 3D Euclidean A* pathfinding, Wheelchair-Accessible Elevator Routing, and a Cloud-Synced Web Map Console.</p>
+      <h1 class="summary-title">IndoorPulse</h1>
+      <p class="summary-subtitle">Indoor navigation on Android. Explore the mapped corridors, stairs and elevators in your browser, or open the team’s final report and presentation.</p>
+      <div class="quick-links"><a class="btn-action btn-action-primary" href="#web-console">Explore a building</a><a class="btn-action" href="#presentation">Project documents</a></div>
     </div>
 
     <!-- 1. EMBEDDED PRESENTATION VIEWER -->
     <section id="presentation">
       <div class="section-header">
-        <h2 class="section-title">Active Deliverable & Presentation Viewer</h2>
+        <h2 class="section-title">Project documents</h2>
         <div class="action-group">
           <a href="assets/docs/Gantt%20Chart.png" target="_blank" class="btn-action">Gantt Chart ↗</a>
           <a href="assets/docs/Milestone%20Plan.pdf" target="_blank" class="btn-action">Milestone Plan ↗</a>
@@ -590,9 +648,11 @@
       </div>
 
       <div class="viewer-container" id="presentationViewer">
+        <div class="document-choice"><label for="documentPicker">Choose document</label>
+          <select id="documentPicker" class="console-select" onchange="loadIntoViewer(Number(this.value),false)"></select></div>
         <div class="viewer-header">
           <div class="viewer-meta">
-            <strong id="docViewerTitle" style="color: #fff; font-size: 1.05rem; font-family: 'Inter', sans-serif;">IndoorPulse Planning & Architecture Deck</strong>
+            <strong id="docViewerTitle" style="color: #fff; font-size: 1.05rem; font-family: 'Inter', sans-serif;">Final project report</strong>
             <span class="version-badge" id="docViewerVersion">v1.0</span>
             <span class="tag author-tag">Authors: Rizwan, Harjot, Ravinder, Pooja</span>
           </div>
@@ -600,7 +660,7 @@
         </div>
 
         <div class="iframe-container">
-          <iframe id="docViewer" src="assets/docs/Indoor_Pulse_PDF.pdf"></iframe>
+          <iframe id="docViewer" title="Final project report" src="about:blank"></iframe>
         </div>
 
         <div class="viewer-actions">
@@ -621,12 +681,8 @@
     <!-- 2. INTERACTIVE WEB APPLICATION: MULTI-FLOOR GRAPH & A* ROUTE CONSOLE -->
     <section id="web-console">
       <div class="section-header">
-        <h2 class="section-title">Interactive Topological Map & 3D A* Route Simulator (Web Interface)</h2>
+        <h2 class="section-title">Explore a building</h2>
         <div class="action-group">
-          <select id="presetMapSelect" class="console-select" style="width: auto; padding: 6px 10px; font-family: var(--font-mono); font-size: 0.75rem;" onchange="switchPresetMap(this.value)">
-            <option value="horizon">Map: Horizon Innovation Center (3-Floor Demo: Stairs + Elevator + Washrooms)</option>
-            <option value="home">Map: Home Survey (Exported Android JSON)</option>
-          </select>
           <input type="file" id="jsonMapUpload" accept=".json,application/json" style="display: none;">
           <button onclick="document.getElementById('jsonMapUpload').click()" class="btn-action btn-action-primary">Import Android Map (.json) ↑</button>
           <button onclick="exportActiveMapJson()" class="btn-action">Export JSON ↓</button>
@@ -635,47 +691,43 @@
       </div>
 
       <div class="console-shell" id="mapConsoleShell">
+        <div class="map-library">
+          <label for="presetMapSelect">Building map</label>
+          <select id="presetMapSelect" class="console-select" onchange="switchPresetMap(this.value)">
+            <optgroup label="Android demos"><option value="innovation">Innovation Centre · 5 floors</option><option value="learning">Learning Centre · 2 floors</option></optgroup>
+            <optgroup label="Other maps"><option value="horizon">Horizon Innovation Center · 3 floors</option><option value="home">Home Survey</option><option id="importedOption" value="" hidden disabled>Imported map</option></optgroup>
+          </select>
+          <button id="sampleBtn" class="btn-action btn-action-primary" onclick="trySampleRoute()">Try a sample route</button>
+        </div>
         <div class="console-topbar">
           <div class="console-meta">
             <strong id="mapBuildingTitle" style="color: #fff; font-size: 0.95rem; font-family: 'Inter', sans-serif;">Building: Horizon Innovation Center (3-Floor Complex)</strong>
             <span class="version-badge" id="mapSchemaVersion">Schema v1.2</span>
-            <span class="tag" id="mapGpsBadge">GPS: 30.52184, 75.88488 (r=120m)</span>
+            <span class="tag" id="mapGpsBadge"></span>
             <span class="tag" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);" id="mapStatsBadge">18 Nodes | 19 Edges</span>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 0.73rem; color: var(--text-muted);">
-            Engine: 3D Euclidean A* + Vertical Portal Shafts + Accessible Routing
-          </span>
+          <div class="camera-row"><button id="simulateWalkBtn" class="btn-action btn-action-primary" onclick="startRouteSimulation()">Simulate walk</button><button class="btn-action btn-action-danger" onclick="triggerEmergencySos()" title="Preview a route to a reachable mapped exit">Find exit</button></div>
         </div>
 
         <div class="console-body">
           <!-- Left Control & Telemetry Sidebar -->
           <div class="console-sidebar">
             <div>
-              <span class="console-label">Active Floor Level</span>
-              <div class="floor-switcher" id="floorButtonsContainer"></div>
-            </div>
-
-            <div>
-              <span class="console-label">Accessibility & Mobility Filter</span>
+              <span class="console-label">Route preference</span>
               <button id="accessibleToggleBtn" class="access-toggle-btn" onclick="toggleAccessibleMode()">
-                <span>♿ Accessible Route (Elevator-Only)</span>
+                <span>Avoid stairs</span>
                 <span class="access-pill" id="accessibleStateText">OFF</span>
               </button>
             </div>
 
             <div>
-              <span class="console-label">Origin Node (Start — Blue Chevron)</span>
-              <select id="startNodeSelect" class="console-select" onchange="onRouteSelectionChange()"></select>
+              <span class="console-label">Start point</span>
+              <select id="startNodeSelect" aria-label="Start point" class="console-select" onchange="onRouteSelectionChange()"></select>
             </div>
 
             <div>
-              <span class="console-label">Destination Node (Target — Red Ring)</span>
-              <select id="endNodeSelect" class="console-select" onchange="onRouteSelectionChange()"></select>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-              <button onclick="startRouteSimulation(false)" class="btn-action btn-action-primary" id="simulateWalkBtn">▶ Simulate Walk</button>
-              <button onclick="triggerEmergencySos()" class="btn-action btn-action-danger" title="Evacuate from indoor room/current position to nearest Building Entry/Exit">🚨 SOS Nearest Exit</button>
+              <span class="console-label">Destination</span>
+              <select id="endNodeSelect" aria-label="Destination" class="console-select" onchange="onRouteSelectionChange()"></select>
             </div>
 
             <!-- Pure Topological Graph Telemetry -->
@@ -693,13 +745,13 @@
                 <span id="metricTransitions" style="color: #00e5ff;">0 Portal(s)</span>
               </div>
               <div class="telemetry-row">
-                <span style="color: var(--text-muted);">PDR State Machine:</span>
-                <span id="metricPdrState" style="color: #38bdf8;">Standby (Ready)</span>
+                <span style="color: var(--text-muted);">Walk playback</span>
+                <span id="metricPdrState" role="status" style="color: #38bdf8;">Standby (Ready)</span>
               </div>
             </div>
 
             <div>
-              <span class="console-label">Computed Waypoint Sequence (Click to Inspect)</span>
+              <span class="console-label">Route steps · select to view floor</span>
               <div class="route-steps-list" id="routeStepsList"></div>
             </div>
           </div>
@@ -708,46 +760,44 @@
           <div class="canvas-stage">
             <!-- Top Control Toolbar -->
             <div class="canvas-toolbar">
-              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.74rem;">
-                <span id="activeFloorIndicator" style="color: #2dd4bf; font-weight: 600;">Floor L0</span>
-                <span style="color: var(--border);">|</span>
-                <span style="color: var(--text-muted);">Click Sets:</span>
-                <button id="clickModeStartBtn" class="mode-chip active-start" onclick="setCanvasClickMode('start')">● Start</button>
-                <button id="clickModeEndBtn" class="mode-chip" onclick="setCanvasClickMode('end')">◎ Target</button>
-                <button id="isoPlanesToggleBtn" class="mode-chip active-planes" onclick="toggleIsoFloorPlanes()" title="Toggle Translucent 3D Floor Slabs">🧊 3D Floor Slabs: ON</button>
+              <div class="camera-row"><label for="floorSelect">Floor</label><span id="floorButtonsContainer"></span><span id="activeFloorIndicator" hidden></span>
+                <button id="floorView" class="mode-chip" aria-pressed="false" onclick="changeFloorView()">2D floor</button>
+                <button id="panMode" class="mode-chip" aria-pressed="false" onclick="camera.pan=!camera.pan;syncCameraControls()">Pan</button>
+                <button id="isoPlanesToggleBtn" class="mode-chip active-planes" aria-pressed="true" onclick="toggleIsoFloorPlanes()">Floor plates</button>
+                <button class="btn-action" onclick="adjustCanvasZoom(1.2)" aria-label="Zoom in">+</button>
+                <button class="btn-action" onclick="adjustCanvasZoom(1/1.2)" aria-label="Zoom out">−</button>
+                <button class="btn-action" onclick="resetCamera()">Reset view</button>
+                <button class="btn-action" id="consoleFullscreenBtn" onclick="toggleConsoleFullscreen()">Fullscreen</button>
               </div>
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <button onclick="adjustCanvasZoom(1.2)" class="btn-action" style="padding: 3px 9px;" title="Zoom In">+</button>
-                <button onclick="adjustCanvasZoom(0.8)" class="btn-action" style="padding: 3px 9px;" title="Zoom Out">−</button>
-                <button onclick="fitMapToCanvas()" class="btn-action" style="padding: 3px 10px;" title="Recenter & Fit All Floors">🎯 Fit 3D Stack</button>
-                <button onclick="toggleConsoleFullscreen()" class="btn-action btn-action-primary" id="consoleFullscreenBtn" style="padding: 3px 10px;">⛶ Fullscreen</button>
+              <div class="camera-row"><span>Tap to set</span>
+                <button id="clickModeStartBtn" class="mode-chip active-start" onclick="setCanvasClickMode('start')">Start</button>
+                <button id="clickModeEndBtn" class="mode-chip" onclick="setCanvasClickMode('end')">Destination</button>
               </div>
             </div>
-
             <!-- Dedicated Status & SOS / Accessible Readout Bar -->
             <div class="canvas-statusbar" id="canvasStatusBar">
-              <span id="hoverNodeReadout">Click any node to set Origin • Shift+Click or Right-Click sets Destination • Dashed Cyan = Vertical Portal</span>
-              <span id="sosStatusBadge" style="display: none; color: #fca5a5; font-weight: 600;">🚨 SOS EVACUATION ROUTE LOCKED TO NEAREST EXIT</span>
-              <span id="accessStatusBadge" style="display: none; color: #67e8f9; font-weight: 600;">♿ ACCESSIBLE MODE: STAIR SHAFTS BYPASSED (ELEVATOR ONLY)</span>
+              <span id="hoverNodeReadout">Tap a point to set the selected endpoint.</span>
+              <span id="sosStatusBadge" style="display: none; color: #fca5a5; font-weight: 600;">Route to a mapped exit</span>
+              <span id="accessStatusBadge" style="display: none; color: #67e8f9; font-weight: 600;">Stair connections excluded</span>
             </div>
 
             <!-- Interactive Blueprint Viewport -->
             <div class="canvas-viewport">
-              <canvas id="mapExplorerCanvas"></canvas>
+              <canvas id="mapExplorerCanvas" tabindex="0" aria-label="Interactive building map. Use arrow keys to rotate or pan, plus and minus to zoom, and Home to reset. Use the start and destination lists to select points."></canvas>
 
               <!-- Modal Transit State Overlay -->
               <div class="transit-modal-overlay" id="transitModalOverlay">
                 <div class="transit-card" id="transitModalCard">
-                  <span class="transit-badge" id="transitModalBadge">⚠ PROXIMITY TRANSIT STATE TRIGGERED</span>
+                  <span class="transit-badge" id="transitModalBadge">Floor change</span>
                   <div class="transit-title" id="transitModalTitle">Vertical Portal: Floor L0 → Floor L1</div>
                   <div class="transit-desc" id="transitModalDesc">
-                    PDR step integration & 400-particle dispersion paused while traversing vertical portal to prevent heading drift.
+                    Continue the walk on the destination floor.
                   </div>
                   <div class="transit-progress-track">
                     <div class="transit-progress-bar" id="transitProgressBar"></div>
                   </div>
                   <button onclick="confirmTransitSwitchNow()" class="btn-action btn-action-primary" style="width: 100%;">
-                    Confirm Floor Arrival Now ↗
+                    Finish floor change
                   </button>
                 </div>
               </div>
@@ -755,18 +805,8 @@
 
             <!-- Bottom Docked Legend Bar -->
             <div class="canvas-footer">
-              <div class="legend-group">
-                <span><span class="legend-dot" style="background: #22c55e;"></span>Stairs / Entry</span>
-                <span><span class="legend-dot" style="background: #06b6d4;"></span>Elevator</span>
-                <span><span class="legend-dot" style="background: #3b82f6;"></span>Room Door</span>
-                <span><span class="legend-dot" style="background: #ec4899;"></span>Washroom</span>
-                <span><span class="legend-dot" style="background: #94a3b8;"></span>Waypoint</span>
-              </div>
-              <div class="legend-group">
-                <span style="color: #94a3b8;">━━ Corridor Edge</span>
-                <span style="color: #00e5ff;">┆┆ Vertical Portal (Stairs / Lift)</span>
-                <span style="color: #38bdf8;">━━ Active A* Route</span>
-              </div>
+              <div class="legend-group"><span style="color:#ffc56e">◆ Stairs</span><span style="color:#b4a0fc">■ Elevator</span><span style="color:#8bbef9">● Room</span><span style="color:#6ce3ae">● Entry / exit</span><span style="color:#57edce">━ Route</span></div>
+              <span id="cameraHelp">Drag to rotate · Two fingers to pan and zoom</span>
             </div>
           </div>
         </div>
@@ -775,8 +815,9 @@
 
     <!-- 3. IMMUTABLE VERSION ARCHIVE TABLE -->
     <section id="version-archive">
+      <p id="archiveStatus" role="status"></p>
       <div class="section-header">
-        <h2 class="section-title">Immutable Deliverable & Cloud Map Archive (AWS EC2 + Backblaze B2)</h2>
+        <h2 class="section-title">Document and map archive</h2>
       </div>
       <div class="table-wrapper">
         <table>
@@ -804,14 +845,9 @@
         <h2 class="section-title">The Problem & Vision</h2>
       </div>
       <div class="card content-card">
-        <h3>The Problem</h3>
-        <p>While GPS revolutionized outdoor navigation, satellite signals attenuate heavily inside multi-story concrete buildings. Navigating complex indoor spaces—such as academic blocks, hospitals, transit hubs, and large commercial complexes—remains disorienting. Furthermore, traditional indoor positioning systems rely on dense Wi-Fi access point fingerprinting or external BLE beacons that require costly installation and fail during power outages or emergency evacuations.</p>
-        
-        <h3>Intended Users</h3>
-        <p>Visitors, students, hospital patients, wheelchair users requiring accessible elevator-only routing, and emergency evacuees who need reliable, offline-first indoor navigation that works immediately on standard Android smartphones without external hardware infrastructure.</p>
-        
-        <h3>Reason for Selection</h3>
-        <p>We selected this problem because building an offline-first indoor positioning engine from first principles combines real-time IMU signal processing, 400-particle Monte Carlo probabilistic state estimation, and 3D multi-floor graph routing into a practical, high-impact system.</p>
+        <h3>Finding a room across floors</h3>
+        <p>An entrance pin gets a visitor to the building. Inside, the useful questions change. Which corridor leads to the room? Where is the elevator? On which floor should the visitor get out?</p>
+        <h3>Who uses the map</h3><p>A surveyor records entrances, corridors, destinations and floor connections. Visitors can then choose a known entrance, search for a room and request a route that avoids stairs.</p>
       </div>
     </section>
 
@@ -821,16 +857,11 @@
         <h2 class="section-title">Our Solution & User Journey</h2>
       </div>
       <div class="card content-card">
-        <h3>Proposed Solution: IndoorPulse</h3>
-        <p>IndoorPulse is an offline-first Indoor Positioning System (IPS) built natively in Kotlin and Jetpack Compose, paired with a self-hosted AWS EC2 + Backblaze B2 Web Map Console. The core engine operates with <strong>zero external beacon dependencies</strong>—using hardware IMU sensors (Linear Accelerometer + Rotation Vector), a 400-particle Monte Carlo localization filter constrained by topological corridor geometry, and a 3D Euclidean A* multi-floor router.</p>
-        
-        <h3>The Main User Journey</h3>
-        <ul>
-          <li><strong>1. Outdoor-to-Indoor Geofence Handshake:</strong> The Outdoor Dashboard monitors live GPS proximity against mapped building geofences (`centerLat`, `centerLng`, `geofenceRadius`) and automatically prompts indoor handoff upon arrival (with manual indoor/outdoor override support).</li>
-          <li><strong>2. Surveyor Mode & Portable JSON Packaging:</strong> An administrator maps the building by placing typed topological nodes (`Building Entry`, `Waypoint`, `Stairs`, `Elevator`, `Washroom`, `Room Door`) and connecting corridors or cross-floor `vertical_portal` edges with full undo/redo history and dynamic touch-snapping, then exports a versioned `.json` map package.</li>
-          <li><strong>3. Multi-Floor 3D A*, Accessible Mode & Emergency SOS Routing:</strong> A user selects any destination across floors, toggles <strong>♿ Accessible Mode</strong> to strictly bypass vertical stairwell shafts in favor of elevators, or taps the 1-click <strong>SOS Nearest Exit</strong> button.</li>
-          <li><strong>4. Live IMU Navigation & Portal Transit State UX:</strong> As the user walks, the Dual-Threshold Schmitt Trigger and 400-particle filter advance the gyro-locked navigation chevron along corridors. Entering a stairwell or elevator proximity radius automatically triggers the modal <strong>Transit State</strong> overlay, pausing PDR step integration during vertical floor transitions.</li>
-        </ul>
+        <h3>From entrance to destination</h3>
+        <ul><li><strong>Choose a building.</strong> Browse saved maps or use location to find nearby mapped entrances. Select the entrance where you are standing.</li>
+        <li><strong>Preview a route.</strong> Pick a room, check the floor changes and enable Avoid stairs when needed.</li>
+        <li><strong>Walk with the phone.</strong> Android estimates motion from steps and heading. A map-constrained particle filter uses the recorded corridors to refine the position estimate.</li>
+        <li><strong>Maintain a building.</strong> Survey mode records points and connections. JSON backups carry the graph between the Android app and this viewer.</li></ul>
       </div>
     </section>
 
@@ -840,13 +871,11 @@
         <h2 class="section-title">Live Demonstration Plan</h2>
       </div>
       <div class="card content-card">
-        <p><strong>Scenario:</strong> End-to-end multi-floor building survey, JSON map export, browser-based 3D A* & Accessible Elevator verification, and live Android PDR navigation.</p>
-        <ul>
-          <li><strong>Step 1 (Surveyor & Persistence):</strong> Open IndoorPulse on Android, inspect the multi-floor building topology stored in Room SQLite, and export the versioned `.json` map package with UUID translation.</li>
-          <li><strong>Step 2 (Cross-Floor 3D A*, Accessible Mode & SOS):</strong> Select an upper-floor room target, toggle <strong>♿ Accessible Mode</strong> to observe dynamic rerouting from Stairwell shafts to Elevator shafts, or trigger <strong>Emergency SOS</strong>.</li>
-          <li><strong>Step 3 (Live IMU Walk & Schmitt Trigger):</strong> Walk physically with the smartphone—observe the Schmitt Trigger state machine reject hand-shake jitter while the 400-particle filter and gyro-locked chevron track movement and pause automatically inside the vertical portal Transit State.</li>
-          <li><strong>Step 4 (Web Map Console Parity):</strong> Load the exported `.json` map into the <strong>Web Map Console</strong> above (or pull it from Backblaze B2) to inspect 3D-stacked floor slabs and simulate the identical routes in the browser.</li>
-        </ul>
+        <h3>Try the five-floor demo</h3>
+        <p>Open Innovation Centre and choose <strong>Try a sample route</strong>. Start at Main Entrance on L0 and take East Elevator to Observation Studio on L3.</p>
+        <ul><li>Start the simulated walk. Watch the elevator instruction show the floor where you get out.</li>
+        <li>Switch to the 2D floor view to inspect room labels, or rotate the 3D stack to see the shaft and corridor connections.</li>
+        <li>For a shorter example, choose Learning Centre and follow the route to Room 104. Both demo graphs are also available in the Android app.</li></ul>
       </div>
     </section>
 
@@ -857,21 +886,17 @@
       </div>
       <div class="grid-2">
         <div class="card content-card">
-          <h3>On-Device Algorithmic Stack (Android Kotlin)</h3>
-          <ul>
-            <li><strong>IMU Sensor Fusion (`KinematicPDR.kt`):</strong> Polls `TYPE_LINEAR_ACCELERATION` and `TYPE_ROTATION_VECTOR` via a Dual-Threshold Schmitt Trigger state machine and Fused Biomechanical stride model, eliminating stationary desk drift.</li>
-            <li><strong>400-Particle Monte Carlo Filter (`ParticleFilter.kt`):</strong> Probabilistic localization engine translating World Space headings into Map Space coordinates with corridor edge clamping and resampling.</li>
-            <li><strong>3D Euclidean A* Router & Accessible Filter:</strong> Replaces flat Dijkstra with multi-floor 3D A* heuristics (`dx, dy, dz`), wheelchair-accessible elevator filtering, strict Emergency SOS exit targeting, and proximity-based portal PDR pausing.</li>
-          </ul>
-        </div>
+          <h3>On the Android device</h3><ul>
+            <li><strong>Motion estimation.</strong> KinematicPDR estimates steps and stride. WalkingHeading supplies the direction of travel.</li>
+            <li><strong>Position tracking.</strong> The particle filter constrains the walking estimate to the mapped floor. Heading and stride error can still accumulate.</li>
+            <li><strong>Navigation.</strong> The route graph joins corridors across mapped stairs and elevators. Find exit searches for a reachable mapped exit.</li></ul>
+      </div>
         <div class="card content-card">
-          <h3>UI Layer, JSON Engine & 3-Tier Cloud Stack</h3>
-          <ul>
-            <li><strong>Jetpack Compose UI (`MapCanvas.kt`, `MainScreen.kt`):</strong> Interactive multi-floor blueprint canvas with zoom-clamping, snapping hit-detection, responsive Building Manager dialogs, and outdoor geofence dashboard animations.</li>
-            <li><strong>Room SQLite & JSON Map Engine:</strong> Relational `BuildingEntity`, `NodeEntity`, and `EdgeEntity` schemas paired with a custom JSON export/import engine supporting automatic UUID remapping upon import.</li>
-            <li><strong>Self-Managed Cloud Deployment (No PaaS):</strong> Static Web Map Console on GitHub Pages communicating with a self-configured <strong>AWS EC2 Flask API</strong> (`indoorpulse.duckdns.org`) and <strong>Backblaze B2 S3-compatible object storage</strong>.</li>
-          </ul>
-        </div>
+          <h3>Maps and storage</h3><ul>
+            <li><strong>Compose and Room.</strong> Android draws the map and stores buildings, points and connections on the device.</li>
+            <li><strong>JSON exchange.</strong> An exported map can be inspected in the browser. Browser walk playback animates a route on the graph.</li>
+            <li><strong>Project archive.</strong> GitHub Pages hosts this site. The archive uses a Flask API on AWS EC2 and Backblaze B2 object storage.</li></ul>
+      </div>
       </div>
     </section>
 
@@ -882,22 +907,17 @@
       </div>
       <div class="grid-2">
         <div class="card content-card">
-          <h3>Phase 1 Complete (Deployed Core System)</h3>
-          <ul>
-            <li><strong>Zero-Infrastructure IMU PDR + 400-Particle Filter:</strong> Full step detection, biomechanical stride model, corridor topology clamping, and World-to-Map chirality translation.</li>
-            <li><strong>Multi-Floor 3D A*, Accessible Elevator Routing & SOS:</strong> Cross-floor pathfinding across `Stairs` and `Elevator` portals, wheelchair-accessible stair-shaft bypass mode, proximity Transit State modal overlay, and 1-tap SOS routing to true building exits.</li>
-            <li><strong>Surveyor Mode & Portable JSON Engine:</strong> Multi-floor node/edge placement (`Entry`, `Waypoint`, `Stairs`, `Elevator`, `Washroom`, `Room Door`), undo/redo stack, dynamic touch snapping, and versioned `.json` export/import with UUID translation.</li>
-            <li><strong>Web Map Console & AWS EC2 / Backblaze B2 Gateway:</strong> Browser-based 3D A* blueprint simulator and password-protected cloud artifact/map storage.</li>
-          </ul>
-        </div>
+          <h3>Available today</h3><ul>
+            <li>Walk-based surveying with editable map points and connections.</li>
+            <li>Offline Android navigation with route preview, floor changes and arrival feedback.</li>
+            <li>Two bundled demo buildings, an interactive floor stack and portable map backups.</li></ul>
+      </div>
         <div class="card content-card">
-          <h3>Phase 2 Planned Extensions (Modular Sensor Clamping)</h3>
-          <ul>
-            <li><strong>ARCore Visual-Inertial Odometry (VIO) Optical Clamping:</strong> Designed as an on-demand optical heading calibration hook for wide, featureless atriums without continuous camera battery drain.</li>
-            <li><strong>Opportunistic Wi-Fi / BLE RSSI Drift Anchors:</strong> Modular observation-update hooks in the Particle Filter to passively clamp cumulative IMU drift in buildings where RF beacons already exist.</li>
-            <li><strong>Barometric Auto-Floor Confirmation:</strong> Fusing smartphone pressure sensor deltas (`TYPE_PRESSURE`) to auto-confirm stairwell/elevator floor arrival without manual confirmation.</li>
-          </ul>
-        </div>
+          <h3>Next experiments</h3><ul>
+            <li>Measure position drift on repeat walks along known corridors.</li>
+            <li>Evaluate Wi-Fi fingerprinting and Bluetooth observations as occasional position corrections.</li>
+            <li>Investigate visual and pressure sensors for heading calibration and floor-change detection.</li></ul>
+      </div>
       </div>
     </section>
 
@@ -1171,7 +1191,128 @@
       ]
     };
 
-    let activeMap = JSON.parse(JSON.stringify(HORIZON_COMPLEX_MAP));
+    // The two Android sample graphs use the same identifiers and distances as DemoMap.kt.
+    function buildAndroidDemo(large) {
+      const id = large ? 'indoorpulse_demo_innovation_v1' : 'indoorpulse_demo_v1';
+      const map = {version: '1.0', building_id: id, building_name: large ? 'Demo Innovation Centre' : 'Demo Learning Centre',
+        centerLat: 0, centerLng: 0, geofenceRadius: 0, nodes: [], edges: []};
+      function point(floor, key, x, y, type = 'Junction', label = '') {
+        const node = {nodeId: id + '_' + (large ? floor + '_' : '') + key, floorId: 'f' + floor,
+          floorLevel: floor, x, y, type, label, lat: 0, lng: 0};
+        map.nodes.push(node);
+        return node;
+      }
+      function link(a, b) {
+        const vertical = a.floorLevel !== b.floorLevel;
+        map.edges.push({edgeId: a.nodeId + '_' + b.nodeId, fromNodeId: a.nodeId, toNodeId: b.nodeId,
+          lengthMeters: vertical ? 3.5 : Math.hypot(b.x-a.x, b.y-a.y), edgeType: vertical ? 'vertical_portal' : 'corridor'});
+      }
+      if (!large) {
+        const entry = point(0,'front',0,0,'Building Entry','Front Entry');
+        const hall = point(0,'hall',0,8,'Junction','Main corridor');
+        const reception = point(0,'reception',-5,8,'Room Door','Reception');
+        const lift = point(0,'lift0',6,8,'Elevator','Elevator (L0)');
+        const landing = point(1,'lift1',6,8,'Elevator','Elevator (L1)');
+        const room = point(1,'room104',-4,8,'Room Door','Room 104');
+        const exit = point(0,'exit',0,18,'Emergency Exit','Side Exit');
+        link(entry,hall); link(hall,reception); link(hall,exit); link(hall,lift); link(lift,landing); link(landing,room);
+        return map;
+      }
+      const rooms = [
+        ['Storage','Bike Room','Print Workshop','Archive'],
+        ['Reception','Auditorium','Café','Visitor Services'],
+        ['Robotics Lab','Electronics Lab','Design Studio','Seminar Room'],
+        ['Quiet Study','Project Room','Research Library','Meeting Room'],
+        ['Media Lab','Observation Studio','Exhibition Hall','Terrace Lounge']
+      ];
+      let previousLift, previousStairs;
+      rooms.forEach((names, index) => {
+        const f = index - 1;
+        const ring = [['west',0,8],['south',16,8],['east',32,8],['north_east',32,24],['north',16,24],['north_west',0,24]]
+          .map(([key,x,y]) => point(f,key,x,y));
+        ring.forEach((p,i) => link(p,ring[(i+1)%ring.length]));
+        link(ring[1],ring[4]);
+        const lift = point(f,'lift',36,24,'Elevator','East Elevator');
+        const stairs = point(f,'stairs',-4,8,'Stairs','West Stairs');
+        link(ring[3],lift); link(ring[0],stairs);
+        link(ring[1],point(f,'room_south',16,3,'Room Door',names[0]));
+        link(ring[2],point(f,'room_east',38,8,'Room Door',names[1]));
+        link(ring[4],point(f,'room_north',16,30,'Room Door',names[2]));
+        link(ring[5],point(f,'room_west',-5,24,'Room Door',names[3]));
+        if (f === 0) {
+          link(ring[0],point(f,'entry',0,0,'Building Entry','Main Entrance'));
+          link(ring[2],point(f,'exit',32,0,'Emergency Exit','East Exit'));
+        }
+        if (previousLift) { link(previousLift,lift); link(previousStairs,stairs); }
+        previousLift = lift;
+        previousStairs = stairs;
+      });
+      return map;
+    }
+
+    const presets = {innovation: buildAndroidDemo(true), learning: buildAndroidDemo(false),
+      horizon: HORIZON_COMPLEX_MAP, home: HOME_SURVEY_MAP};
+    let activeMap = presets.innovation;
+    let presetKey = 'innovation';
+    let mapRequest = 0;
+    const samples = {
+      innovation: ['Main Entrance','Observation Studio'],
+      learning: ['Front Entry','Room 104'],
+      horizon: ['Main Atrium Entry','Boardroom 201']
+    };
+    function setSampleEndpoints() {
+      const labels = samples[presetKey];
+      if (!labels) return;
+      const [start,end] = labels.map(label => activeMap.nodes.find(node => node.label === label));
+      if (!start || !end) return;
+      document.getElementById('startNodeSelect').value = start.nodeId;
+      document.getElementById('endNodeSelect').value = end.nodeId;
+      currentFloor = start.floorLevel;
+    }
+    function trySampleRoute() {
+      if (!samples[presetKey]) return;
+      setSampleEndpoints();
+      if (presetKey === 'innovation' && !isAccessibleMode) toggleAccessibleMode();
+      onRouteSelectionChange();
+      selectFloor(currentFloor);
+      resetCamera();
+    }
+
+    function switchPresetMap(key) {
+      if (!presets[key]) return;
+      mapRequest++;
+      activeMap = presets[key];
+      presetKey = key;
+      currentFloor = 0;
+      initMapConsoleUI();
+    }
+
+    function openImportedMap(map) {
+      if (!Array.isArray(map?.nodes) || !map.nodes.length || !Array.isArray(map.edges))
+        throw new Error('The map must contain points and an edge list.');
+      const ids = new Set();
+      for (const n of map.nodes) {
+        if (!n || typeof n.nodeId !== 'string' || ids.has(n.nodeId) || !Number.isFinite(n.x) ||
+          !Number.isFinite(n.y) || !Number.isInteger(n.floorLevel ?? 0) ||
+          (n.type != null && typeof n.type !== 'string') || (n.label != null && typeof n.label !== 'string'))
+          throw new Error('A map point is missing its ID, floor or coordinates.');
+        n.floorLevel ??= 0;
+        ids.add(n.nodeId);
+      }
+      if (map.edges.some(e => !e || !ids.has(e.fromNodeId) || !ids.has(e.toNodeId) ||
+        !Number.isFinite(Number(e.lengthMeters ?? 1)) || Number(e.lengthMeters) < 0))
+        throw new Error('An edge has an invalid distance or refers to an unknown point.');
+      presetKey = '';
+      activeMap = map;
+      const picker = document.getElementById('presetMapSelect');
+      const imported = document.getElementById('importedOption');
+      imported.hidden = false;
+      imported.textContent = map.building_name || 'Imported map';
+      picker.value = '';
+      currentFloor = getFloorsList()[0];
+      initMapConsoleUI();
+    }
+
     let currentFloor = 0;
     let activeRoute = [];
     let isSosMode = false;
@@ -1197,59 +1338,86 @@
 
     const mapCanvas = document.getElementById('mapExplorerCanvas');
     const mapCtx = mapCanvas.getContext('2d');
-    let viewTransform = { scale: 20, offsetX: 0, offsetY: 0, isDragging: false, lastX: 0, lastY: 0 };
-
-    /* =========================================================================
-       TRUE 3D PITCH FORESHORTENING & NON-OVERLAPPING VERTICAL LAYER SEPARATION:
-       - PITCH_Y_SCALE = 0.56 compresses each floor's Y-depth into a sleek 3D perspective plane
-       - FLOOR_GAP_WORLD = 9.2 separates Floor L0, Floor L1, and Floor L2 cleanly so
-         no node on L1 (like Washroom L1) ever collides with Floor L0!
-       - ΔX = 0 across floors so identical (x, y) portals drop 100% straight vertically (|)!
-       ========================================================================= */
-    const PITCH_Y_SCALE = 0.56;
-    const FLOOR_GAP_WORLD = 9.2;
-
-    function projectWorld3D(wx, wy, floorLevel) {
-      return {
-        px: wx,
-        py: (wy * PITCH_Y_SCALE) - (floorLevel * FLOOR_GAP_WORLD)
-      };
+    const camera = {yaw: -0.35, pitch: 0.37, flat: false, pan: false, scale: 1, ox: 0, oy: 0};
+    let bounds, nodeIndex = new Map();
+    function indexMap() {
+      nodeIndex = new Map(activeMap.nodes.map(n => [n.nodeId,n]));
+      let left = Infinity, right = -Infinity, top = Infinity, bottom = -Infinity;
+      activeMap.nodes.forEach(n => {
+        left = Math.min(left,n.x); right = Math.max(right,n.x);
+        top = Math.min(top,n.y); bottom = Math.max(bottom,n.y);
+      });
+      const floors = getFloorsList();
+      bounds = {cx:(left+right)/2, cy:(top+bottom)/2, halfW:(right-left)/2+3, halfH:(bottom-top)/2+3,
+        midFloor:(floors[0]+floors[floors.length-1])/2, gap:Math.max(10,Math.hypot(right-left+6,bottom-top+6)*0.37)};
     }
-
-    function nodeToScreen(node) {
-      if (!node) return { x: 0, y: 0 };
-      const { px, py } = projectWorld3D(node.x, node.y, node.floorLevel || 0);
-      return {
-        x: px * viewTransform.scale + viewTransform.offsetX,
-        y: py * viewTransform.scale + viewTransform.offsetY
-      };
+    function projectWorld3D(x,y,floor) {
+      const dx = x-bounds.cx, dy = y-bounds.cy;
+      if (camera.flat) return {px:dx,py:-dy};
+      const c = Math.cos(camera.yaw), s = Math.sin(camera.yaw);
+      return {px: dx*c-dy*s, py: -(dx*s+dy*c)*Math.sin(camera.pitch)
+        -(floor-bounds.midFloor)*bounds.gap*Math.cos(camera.pitch)};
     }
-
-    function worldToScreen(wx, wy, floorLevel = currentFloor) {
-      const { px, py } = projectWorld3D(wx, wy, floorLevel);
-      return {
-        x: px * viewTransform.scale + viewTransform.offsetX,
-        y: py * viewTransform.scale + viewTransform.offsetY
-      };
+    function worldToScreen(x,y,floor) {
+      const p = projectWorld3D(x,y,floor);
+      return {x:p.px*camera.scale+camera.ox,y:p.py*camera.scale+camera.oy};
     }
-
-    function getCanvasMouseCoords(e) {
-      const rect = mapCanvas.getBoundingClientRect();
-      const scaleX = mapCanvas.width / rect.width;
-      const scaleY = mapCanvas.height / rect.height;
-      return {
-        x: (e.clientX - rect.left) * scaleX,
-        y: (e.clientY - rect.top) * scaleY
-      };
+    function nodeToScreen(n) { return worldToScreen(n.x,n.y,n.floorLevel); }
+    function floorCorners(f) {
+      return [[-1,-1],[1,-1],[1,1],[-1,1]].map(([sx,sy]) =>
+        worldToScreen(bounds.cx+sx*bounds.halfW,bounds.cy+sy*bounds.halfH,f));
     }
-
+    function fitMapToCanvas() {
+      if (!bounds) return;
+      const w = mapCanvas.clientWidth, h = mapCanvas.clientHeight;
+      if (!w || !h) return;
+      camera.ox = 0; camera.oy = 0; camera.scale = 1;
+      const floors = getFloorsList();
+      const corners = [floors[0],floors[floors.length-1]].flatMap(floorCorners);
+      const xs = corners.map(p => p.x), ys = corners.map(p => p.y);
+      const left = Math.min(...xs), right = Math.max(...xs), top = Math.min(...ys), bottom = Math.max(...ys);
+      camera.scale = Math.min((w-Math.min(w*0.25,100))/Math.max(1,right-left),
+        (h-64)/Math.max(1,bottom-top),55);
+      camera.ox = (w-camera.scale*(left+right))/2; camera.oy = (h-camera.scale*(top+bottom))/2;
+      renderMapCanvas();
+    }
     function resizeMapCanvas() {
-      const rect = mapCanvas.getBoundingClientRect();
-      mapCanvas.width = Math.max(400, Math.floor(rect.width));
-      mapCanvas.height = Math.max(520, Math.floor(rect.height));
+      const dpr = Math.min(2,window.devicePixelRatio || 1);
+      mapCanvas.width = Math.round(mapCanvas.clientWidth*dpr);
+      mapCanvas.height = Math.round(mapCanvas.clientHeight*dpr);
+      mapCtx.setTransform(dpr,0,0,dpr,0,0);
       fitMapToCanvas();
     }
-    window.addEventListener('resize', resizeMapCanvas);
+    new ResizeObserver(resizeMapCanvas).observe(mapCanvas);
+    function zoomAt(factor,x,y) {
+      const newScale = Math.max(0.00001,Math.min(180,camera.scale*factor));
+      const ratio = newScale/camera.scale;
+      camera.ox = x+(camera.ox-x)*ratio; camera.oy = y+(camera.oy-y)*ratio; camera.scale=newScale;
+    }
+    function adjustCanvasZoom(factor) {
+      zoomAt(factor,mapCanvas.clientWidth/2,mapCanvas.clientHeight/2); renderMapCanvas();
+    }
+    function syncCameraControls() {
+      const flat = document.getElementById('floorView'), pan = document.getElementById('panMode');
+      flat.setAttribute('aria-pressed',camera.flat);
+      pan.setAttribute('aria-pressed',camera.pan || camera.flat); pan.disabled=camera.flat;
+      document.getElementById('isoPlanesToggleBtn').disabled = camera.flat;
+      document.getElementById('cameraHelp').textContent = camera.flat || camera.pan
+        ? 'Drag to pan · Pinch or scroll to zoom' : 'Drag to rotate · Two fingers to pan and zoom';
+    }
+    function resetCamera() {
+      camera.yaw=-0.35; camera.pitch=0.37; camera.pan=false;
+      hoveredNode=null;
+      document.getElementById('hoverNodeReadout').textContent='Tap a point to set the selected endpoint.';
+      syncCameraControls(); fitMapToCanvas();
+    }
+    function changeFloorView() {
+      camera.flat=!camera.flat; syncCameraControls(); fitMapToCanvas();
+    }
+    function getCanvasMouseCoords(e) {
+      const r = mapCanvas.getBoundingClientRect();
+      return {x:e.clientX-r.left,y:e.clientY-r.top};
+    }
 
     function toggleConsoleFullscreen() {
       const shell = document.getElementById('mapConsoleShell');
@@ -1276,7 +1444,7 @@
       showIsoFloorPlanes = !showIsoFloorPlanes;
       const btn = document.getElementById('isoPlanesToggleBtn');
       btn.className = 'mode-chip' + (showIsoFloorPlanes ? ' active-planes' : '');
-      btn.innerText = showIsoFloorPlanes ? '🧊 3D Floor Slabs: ON' : '🧊 3D Floor Slabs: OFF';
+      btn.setAttribute('aria-pressed',showIsoFloorPlanes);
       renderMapCanvas();
     }
 
@@ -1291,7 +1459,8 @@
       const btn = document.getElementById('accessibleToggleBtn');
       const pill = document.getElementById('accessibleStateText');
       btn.classList.toggle('active', isAccessibleMode);
-      pill.innerText = isAccessibleMode ? 'ON (ELEVATOR ONLY)' : 'OFF';
+      pill.innerText = isAccessibleMode ? 'ON' : 'OFF';
+      btn.setAttribute('aria-pressed',isAccessibleMode);
       updateStatusBanners();
       computeAndRenderRoute();
     }
@@ -1302,7 +1471,7 @@
     }
 
     function getNodeById(id) {
-      return activeMap.nodes.find(n => n.nodeId === id);
+      return nodeIndex.get(id);
     }
 
     function isStairNode(node) {
@@ -1315,31 +1484,6 @@
       if (!node) return false;
       const t = (node.type || '').toLowerCase();
       return t.includes('elevator') || t.includes('lift');
-    }
-
-    function getNodeColor(type) {
-      const t = (type || '').toLowerCase();
-      if (t.includes('stair') || t.includes('entry') || t.includes('exit')) return '#22c55e';
-      if (t.includes('elevator') || t.includes('lift')) return '#06b6d4';
-      if (t.includes('room') || t.includes('door')) return '#3b82f6';
-      if (t.includes('washroom') || t.includes('restroom')) return '#ec4899';
-      return '#94a3b8';
-    }
-
-    function getPortalPartners(nodeId) {
-      const partners = [];
-      for (const e of activeMap.edges) {
-        if (e.edgeType === 'vertical_portal') {
-          if (e.fromNodeId === nodeId) {
-            const p = getNodeById(e.toNodeId);
-            if (p) partners.push(p);
-          } else if (e.toNodeId === nodeId) {
-            const p = getNodeById(e.fromNodeId);
-            if (p) partners.push(p);
-          }
-        }
-      }
-      return partners;
     }
 
     /* =========================================================================
@@ -1358,6 +1502,7 @@
       const adj = new Map();
       activeMap.nodes.forEach(n => adj.set(n.nodeId, []));
 
+      let costPerMetre = 1;
       activeMap.edges.forEach(e => {
         const nFrom = getNodeById(e.fromNodeId);
         const nTo = getNodeById(e.toNodeId);
@@ -1372,9 +1517,14 @@
           }
         }
 
+        // Scale the heuristic to the cheapest cost per geometric metre in this graph.
+        // This also admits zero-cost links from Android exports.
+        const distance=Math.hypot(nFrom.x-nTo.x,nFrom.y-nTo.y,(nFrom.floorLevel-nTo.floorLevel)*4);
+        const weight=Number(e.lengthMeters ?? 1);
+        if (distance>0) costPerMetre=Math.min(costPerMetre,weight/distance);
         if (adj.has(e.fromNodeId) && adj.has(e.toNodeId)) {
-          adj.get(e.fromNodeId).push({ to: e.toNodeId, weight: Number(e.lengthMeters) || 1, edgeType: e.edgeType });
-          adj.get(e.toNodeId).push({ to: e.fromNodeId, weight: Number(e.lengthMeters) || 1, edgeType: e.edgeType });
+          adj.get(e.fromNodeId).push({ to: e.toNodeId, weight, edgeType: e.edgeType });
+          adj.get(e.toNodeId).push({ to: e.fromNodeId, weight, edgeType: e.edgeType });
         }
       });
 
@@ -1382,7 +1532,7 @@
         const dx = nodeA.x - nodeB.x;
         const dy = nodeA.y - nodeB.y;
         const dz = (nodeA.floorLevel - nodeB.floorLevel) * 4.0;
-        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+        return costPerMetre*Math.hypot(dx,dy,dz);
       }
 
       const openSet = new Set([startId]);
@@ -1446,11 +1596,17 @@
     }
 
     function initMapConsoleUI() {
+      indexMap(); hoveredNode=null; setCanvasClickMode('start');
+      const sampleBtn=document.getElementById('sampleBtn');
+      sampleBtn.hidden=!samples[presetKey];sampleBtn.style.display=sampleBtn.hidden ? 'none' : '';
+      sampleBtn.title=samples[presetKey]?.join(' → ') || '';
+      if (presetKey) document.getElementById('importedOption').hidden=true;
       document.getElementById('mapBuildingTitle').innerText = `Building: ${activeMap.building_name || 'Unnamed'}`;
       document.getElementById('mapSchemaVersion').innerText = `Schema v${activeMap.version || '1.0'}`;
       const lat = Number(activeMap.centerLat || 0).toFixed(5);
       const lng = Number(activeMap.centerLng || 0).toFixed(5);
       document.getElementById('mapGpsBadge').innerText = `GPS: ${lat}, ${lng} (r=${activeMap.geofenceRadius || 100}m)`;
+      document.getElementById('mapGpsBadge').hidden = Number(lat)===0 && Number(lng)===0;
       document.getElementById('mapStatsBadge').innerText = `${activeMap.nodes.length} Nodes | ${activeMap.edges.length} Edges`;
 
       const floors = getFloorsList();
@@ -1458,13 +1614,10 @@
 
       const floorContainer = document.getElementById('floorButtonsContainer');
       floorContainer.innerHTML = '';
-      floors.forEach(fl => {
-        const btn = document.createElement('button');
-        btn.className = 'floor-btn' + (fl === currentFloor ? ' active' : '');
-        btn.innerText = `L${fl}`;
-        btn.onclick = () => selectFloor(fl);
-        floorContainer.appendChild(btn);
-      });
+      const floorsSelect=document.createElement('select');
+      floorsSelect.id='floorSelect';floorsSelect.className='console-select';floorsSelect.setAttribute('aria-label','Selected floor');
+      for (const f of floors) floorsSelect.add(new Option('L'+f,String(f)));
+      floorsSelect.value=String(currentFloor);floorsSelect.onchange=()=>selectFloor(Number(floorsSelect.value));floorContainer.append(floorsSelect);
 
       const startSel = document.getElementById('startNodeSelect');
       const endSel = document.getElementById('endNodeSelect');
@@ -1474,12 +1627,12 @@
       activeMap.nodes.forEach((n) => {
         const opt1 = document.createElement('option');
         opt1.value = n.nodeId;
-        opt1.innerText = `[Floor L${n.floorLevel}] ${n.label} (${n.type})`;
+        opt1.innerText = `L${n.floorLevel} · ${n.label || n.type || "Waypoint"}`;
         startSel.appendChild(opt1);
 
         const opt2 = document.createElement('option');
         opt2.value = n.nodeId;
-        opt2.innerText = `[Floor L${n.floorLevel}] ${n.label} (${n.type})`;
+        opt2.innerText = `L${n.floorLevel} · ${n.label || n.type || "Waypoint"}`;
         endSel.appendChild(opt2);
       });
 
@@ -1489,11 +1642,13 @@
         endSel.selectedIndex = boardroomIdx !== -1 ? boardroomIdx : activeMap.nodes.length - 1;
       }
 
+      setSampleEndpoints();
+      document.getElementById('floorSelect').value=String(currentFloor);
       document.getElementById('activeFloorIndicator').innerText = `Floor L${currentFloor}`;
       isSosMode = false;
       updateStatusBanners();
       computeAndRenderRoute();
-      fitMapToCanvas();
+      resetCamera();
     }
 
     function onRouteSelectionChange() {
@@ -1505,100 +1660,130 @@
     function selectFloor(fl) {
       currentFloor = fl;
       document.getElementById('activeFloorIndicator').innerText = `Floor L${currentFloor}`;
-      document.querySelectorAll('.floor-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText === `L${fl}`);
-      });
+      document.getElementById('floorSelect').value=String(fl);
       renderMapCanvas();
     }
 
+    function shaftMatches(origin,n) {
+      if (!isElevatorNode(origin) || !isElevatorNode(n)) return false;
+      if (origin.shaftId || n.shaftId) return Boolean(origin.shaftId) && origin.shaftId === n.shaftId;
+      const shaftName = node => (node.label || '').replace(/\s*\(?\b(?:floor\s*|l)\s*-?\d+\)?\s*$/i,'').trim().toLowerCase();
+      return Math.hypot(origin.x-n.x,origin.y-n.y)<0.05 && shaftName(origin)===shaftName(n);
+    }
+    // Each leg keeps its original graph indexes so floor inspection and export retain every landing.
+    function routeLegs(path) {
+      const legs=[];
+      for (let from=0; from<path.length-1;) {
+        let to=from+1;
+        const a=getNodeById(path[from]), b=getNodeById(path[to]);
+        const dir=Math.sign(b.floorLevel-a.floorLevel);
+        const type=!dir ? 'walk' : isElevatorNode(a) && isElevatorNode(b) ? 'lift' : isStairNode(a) || isStairNode(b) ? 'stairs' : 'transfer';
+        if (type==='lift' && shaftMatches(a,b)) {
+          while (to+1<path.length) {
+            const here=getNodeById(path[to]), next=getNodeById(path[to+1]);
+            if (Math.sign(next.floorLevel-here.floorLevel)!==dir || !shaftMatches(a,next)) break;
+            to++;
+          }
+        }
+        legs.push({from,to,type}); from=to;
+      }
+      return legs;
+    }
+    let legs=[];
     function computeAndRenderRoute() {
       stopRouteSimulation();
-      const startId = document.getElementById('startNodeSelect').value;
-      const endId = document.getElementById('endNodeSelect').value;
-      activeRoute = runAStar3D(startId, endId, isAccessibleMode);
-
-      let stairPortals = 0;
-      let elevatorPortals = 0;
-      const stepsContainer = document.getElementById('routeStepsList');
-      stepsContainer.innerHTML = '';
-
-      const modeEl = document.getElementById('metricMode');
-      if (isSosMode) {
-        modeEl.innerText = isAccessibleMode ? '🚨 ♿ ACCESSIBLE SOS' : '🚨 SOS EVACUATION';
-        modeEl.style.color = '#ef4444';
-      } else if (isAccessibleMode) {
-        modeEl.innerText = '♿ Accessible (Lift Only)';
-        modeEl.style.color = '#06b6d4';
-      } else {
-        modeEl.innerText = '3D Euclidean A*';
-        modeEl.style.color = '#a5b4fc';
+      const el=id=>document.getElementById(id);
+      activeRoute=runAStar3D(el('startNodeSelect').value,el('endNodeSelect').value,isAccessibleMode);
+      legs=routeLegs(activeRoute);
+      const routeList=el('routeStepsList');
+      routeList.replaceChildren();
+      el('metricMode').textContent=isSosMode ? 'Find exit' : isAccessibleMode ? 'Avoid stairs' : 'Standard';
+      el('metricNodeHops').textContent=activeRoute.length ? (activeRoute.length-1)+' connections' : 'No route';
+      const lifts=legs.filter(l=>l.type==='lift').length, stairs=legs.filter(l=>l.type==='stairs').length;
+      const other=legs.filter(l=>l.type==='transfer').length;
+      el('metricTransitions').textContent=[lifts && (lifts+' elevator ride'+(lifts===1?'':'s')),
+        stairs && (stairs+' stair flight'+(stairs===1?'':'s')),other && (other+' transfer'+(other===1?'':'s'))].filter(Boolean).join(' · ') || 'None';
+      for (let i=0;i<legs.length;i++) {
+        const leg=legs[i], a=getNodeById(activeRoute[leg.from]);
+        // Keep every turn in playback, but group anonymous corridor junctions in the written directions.
+        let endIndex=leg.to;
+        while (leg.type==='walk' && legs[i+1]?.type==='walk' && !getNodeById(activeRoute[endIndex]).label)
+          endIndex=legs[++i].to;
+        const b=getNodeById(activeRoute[endIndex]);
+        const row=document.createElement('button');
+        row.type='button'; row.className='route-step-item'+(leg.type==='walk' ? '' : leg.type==='lift' ? ' portal-elevator' : ' portal-stairs');
+        row.id='route-step-dom-'+leg.from;
+        row.dataset.end=String(endIndex);
+        const name=a.label || a.type || 'Waypoint';
+        row.textContent=leg.type==='walk' ? 'Walk to '+(b.label || b.type)+' · L'+b.floorLevel : name+' · L'+a.floorLevel+' → L'+b.floorLevel;
+        row.onclick=()=>selectFloor(a.floorLevel);routeList.append(row);
       }
-
-      if (activeRoute.length > 0) {
-        for (let i = 0; i < activeRoute.length; i++) {
-          const node = getNodeById(activeRoute[i]);
-          let edgeInfo = null;
-          if (i < activeRoute.length - 1) {
-            const nextId = activeRoute[i + 1];
-            edgeInfo = activeMap.edges.find(e =>
-              (e.fromNodeId === node.nodeId && e.toNodeId === nextId) ||
-              (e.toNodeId === node.nodeId && e.fromNodeId === nextId)
-            );
-            if (edgeInfo && edgeInfo.edgeType === 'vertical_portal') {
-              if (isElevatorNode(node)) elevatorPortals++;
-              else stairPortals++;
-            }
-          }
-
-          const div = document.createElement('div');
-          div.id = `route-step-dom-${i}`;
-          const isPortalStep = edgeInfo && edgeInfo.edgeType === 'vertical_portal';
-          const portalClass = isPortalStep ? (isElevatorNode(node) ? ' portal-elevator' : ' portal-stairs') : '';
-          div.className = 'route-step-item' + portalClass;
-          const nextNode = (i < activeRoute.length - 1) ? getNodeById(activeRoute[i + 1]) : null;
-
-          let actionLabel = '';
-          if (edgeInfo) {
-            if (isPortalStep) {
-              const pType = isElevatorNode(node) ? '🛗 Elevator Shaft' : '🪜 Stair Shaft';
-              actionLabel = ` → <span>[${pType} → L${nextNode ? nextNode.floorLevel : ''}]</span>`;
-            } else {
-              actionLabel = ` → <span>[Corridor]</span>`;
-            }
-          } else {
-            actionLabel = isSosMode ? ' [SAFE EXIT REACHED]' : ' [Target Reached]';
-          }
-
-          div.innerHTML = `${i + 1}. <strong>${node.label}</strong> (L${node.floorLevel})${actionLabel}`;
-          div.onclick = () => selectFloor(node.floorLevel);
-          stepsContainer.appendChild(div);
-        }
-
-        const hops = Math.max(0, activeRoute.length - 1);
-        document.getElementById('metricNodeHops').innerText = `${activeRoute.length} Nodes (${hops} Hops)`;
-        if (elevatorPortals > 0 && stairPortals === 0) {
-          document.getElementById('metricTransitions').innerText = `${elevatorPortals} Elevator Shaft(s)`;
-          document.getElementById('metricTransitions').style.color = '#67e8f9';
-        } else if (stairPortals > 0 && elevatorPortals === 0) {
-          document.getElementById('metricTransitions').innerText = `${stairPortals} Stair Shaft(s)`;
-          document.getElementById('metricTransitions').style.color = '#00e5ff';
-        } else {
-          document.getElementById('metricTransitions').innerText = `${stairPortals + elevatorPortals} Portal(s)`;
-          document.getElementById('metricTransitions').style.color = '#cbd5e1';
-        }
-        document.getElementById('metricPdrState').innerText = 'Standby (Ready)';
-      } else {
-        document.getElementById('metricNodeHops').innerText = 'Blocked / No Elevator';
-        document.getElementById('metricTransitions').innerText = '0 Portal(s)';
-        document.getElementById('metricPdrState').innerText = isAccessibleMode ? 'No Elevator on Map' : 'No Valid Route';
-        stepsContainer.innerHTML = `<div class="route-step-item" style="border-left-color:#ef4444; color:#fca5a5;">${
-          isAccessibleMode
-            ? '♿ This building map has no Elevator portal connecting these floors. Toggle Accessible Mode OFF to allow stairs.'
-            : 'No connected path between selected nodes.'
-        }</div>`;
-      }
-
+      const end=getNodeById(activeRoute.at(-1));
+      const last=document.createElement(end ? 'button' : 'div');
+      last.className='route-step-item';
+      if (end) {
+        last.id='route-step-dom-'+(activeRoute.length-1);
+        last.textContent=(activeRoute.length===1 ? 'Already here · ' : 'Arrive at ')+(end.label || end.type)+' · L'+end.floorLevel;
+        last.onclick=()=>selectFloor(end.floorLevel);
+      } else last.textContent=isAccessibleMode ? 'No connected route with stairs excluded.' : 'No connected route between these points.';
+      routeList.append(last);
+      el('simulateWalkBtn').disabled=legs.length===0;
       renderMapCanvas();
+    }
+    function startRouteSimulation(keepSosFlag=false) {
+      if (simState.active && !keepSosFlag) { stopRouteSimulation();renderMapCanvas();return; }
+      if (!legs.length) return;
+      stopRouteSimulation();
+      const first=getNodeById(activeRoute[0]);
+      Object.assign(simState,{active:true,arrived:false,x:first.x,y:first.y,floor:first.floorLevel,
+        segIndex:0,segProgress:0,lastFrameTime:performance.now()});
+      selectFloor(first.floorLevel);
+      const overlay=document.getElementById('transitModalOverlay'),status=document.getElementById('metricPdrState');
+      document.getElementById('simulateWalkBtn').textContent='Stop walk';
+      let legIndex=0;
+      function beginLeg() {
+        const leg=legs[legIndex],a=getNodeById(activeRoute[leg.from]),b=getNodeById(activeRoute[leg.to]);
+        simState.segIndex=leg.from;simState.segProgress=0;simState.inTransit=leg.type!=='walk';
+        highlightActiveWaypointStep(leg.from);
+        if (simState.inTransit) {
+          simState.transitElapsedMs=0;
+          document.getElementById('transitProgressBar').style.width='0%';
+          document.getElementById('transitModalBadge').textContent=leg.type==='lift' ? 'Elevator ride' : leg.type==='stairs' ? 'Stairs' : 'Floor change';
+          document.getElementById('transitModalTitle').textContent=(a.label || a.type || 'Change floors')+' to L'+b.floorLevel;
+          document.getElementById('transitModalDesc').textContent='Board on L'+a.floorLevel+' and continue on L'+b.floorLevel+'.';
+        }
+        overlay.classList.toggle('show',simState.inTransit);
+        status.textContent=simState.inTransit ? 'Changing floors' : 'Walking';
+      }
+      function frame(now) {
+        if (!simState.active) return;
+        const dt=Math.min(100,Math.max(0,now-simState.lastFrameTime));
+        simState.lastFrameTime=now;
+        const leg=legs[legIndex],a=getNodeById(activeRoute[leg.from]),b=getNodeById(activeRoute[leg.to]);
+        if (simState.inTransit) {
+          simState.transitElapsedMs+=dt;
+          simState.segProgress=Math.min(1,simState.transitElapsedMs/simState.transitDurationMs);
+          document.getElementById('transitProgressBar').style.width=(100*simState.segProgress)+'%';
+        } else {
+          simState.segProgress=Math.min(1,simState.segProgress+dt*0.006/Math.max(0.5,Math.hypot(b.x-a.x,b.y-a.y)));
+        }
+        const t=simState.segProgress;
+        simState.x=a.x+(b.x-a.x)*t; simState.y=a.y+(b.y-a.y)*t;
+        simState.floor=camera.flat && t<1 ? a.floorLevel : a.floorLevel+(b.floorLevel-a.floorLevel)*t;
+        if (t===1) {
+          if (a.floorLevel!==b.floorLevel) selectFloor(b.floorLevel);
+          if (++legIndex===legs.length) {
+            stopRouteSimulation();
+            simState.arrived=true;simState.segIndex=activeRoute.length-1;
+            status.textContent='Arrived at '+(b.label || b.type)+' · L'+b.floorLevel;
+            highlightActiveWaypointStep(simState.segIndex);
+            renderMapCanvas();return;
+          }
+          beginLeg();
+        }
+        renderMapCanvas();simState.animId=requestAnimationFrame(frame);
+      }
+      beginLeg();simState.animId=requestAnimationFrame(frame);
     }
 
     function triggerEmergencySos() {
@@ -1632,7 +1817,7 @@
         }
       }
 
-      let bestExitId = exitNodes[0].nodeId;
+      let bestExitId = null;
       let shortestCost = Infinity;
 
       exitNodes.forEach(exitNode => {
@@ -1645,7 +1830,7 @@
               (ed.fromNodeId === candidatePath[i] && ed.toNodeId === candidatePath[i + 1]) ||
               (ed.toNodeId === candidatePath[i] && ed.fromNodeId === candidatePath[i + 1])
             );
-            if (e) cost += Number(e.lengthMeters) || 0;
+            if (e) cost += Number(e.lengthMeters ?? 1);
           }
           if (cost < shortestCost) {
             shortestCost = cost;
@@ -1654,6 +1839,7 @@
         }
       });
 
+      if (!bestExitId) { alert('No mapped exit is reachable with this route preference.'); return; }
       document.getElementById('startNodeSelect').value = originId;
       document.getElementById('endNodeSelect').value = bestExitId;
       isSosMode = true;
@@ -1666,409 +1852,135 @@
       startRouteSimulation(true);
     }
 
-    function fitMapToCanvas() {
-      if (!activeMap.nodes || activeMap.nodes.length === 0) return;
-      let minPX = Infinity, maxPX = -Infinity, minPY = Infinity, maxPY = -Infinity;
-      activeMap.nodes.forEach(n => {
-        const { px, py } = projectWorld3D(n.x, n.y, n.floorLevel || 0);
-        if (px < minPX) minPX = px;
-        if (px > maxPX) maxPX = px;
-        if (py < minPY) minPY = py;
-        if (py > maxPY) maxPY = py;
-      });
-
-      // Include slab margins in bounding box so all 3 translucent floor slabs fit comfortably
-      const spanX = Math.max(12, (maxPX - minPX) + 9);
-      const spanY = Math.max(12, (maxPY - minPY) + 7);
-      const padX = 75;
-      const padY = 48;
-      const scaleX = (mapCanvas.width - padX * 2) / spanX;
-      const scaleY = (mapCanvas.height - padY * 2) / spanY;
-      viewTransform.scale = Math.max(12, Math.min(34, Math.min(scaleX, scaleY)));
-
-      const centerPX = (minPX + maxPX) / 2;
-      const centerPY = (minPY + maxPY) / 2;
-      viewTransform.offsetX = mapCanvas.width / 2 - centerPX * viewTransform.scale;
-      viewTransform.offsetY = mapCanvas.height / 2 - centerPY * viewTransform.scale;
-      renderMapCanvas();
+    const ink = {stairs:'#ffc56e',lift:'#b4a0fc',room:'#8bbef9',entry:'#6ce3ae',wash:'#f3a3cf',
+      junction:'#a9bbc7',route:'#57edce',exitRoute:'#ff846f'};
+    function kind(n) {
+      if (isElevatorNode(n)) return 'lift';
+      if (isStairNode(n)) return 'stairs';
+      const t=(n.type || '').toLowerCase();
+      if (/entry|exit/.test(t)) return 'entry';
+      if (/washroom|restroom/.test(t)) return 'wash';
+      if (/room|door/.test(t)) return 'room';
+      return 'junction';
     }
-
-    function adjustCanvasZoom(factor) {
-      const cx = mapCanvas.width / 2;
-      const cy = mapCanvas.height / 2;
-      viewTransform.offsetX = cx - (cx - viewTransform.offsetX) * factor;
-      viewTransform.offsetY = cy - (cy - viewTransform.offsetY) * factor;
-      viewTransform.scale = Math.max(8, Math.min(120, viewTransform.scale * factor));
-      renderMapCanvas();
+    function line(a,b,color,width,dashes=[]) {
+      mapCtx.beginPath(); mapCtx.moveTo(a.x,a.y); mapCtx.lineTo(b.x,b.y);
+      mapCtx.strokeStyle=color; mapCtx.lineWidth=width;
+      mapCtx.setLineDash(dashes); mapCtx.stroke(); mapCtx.setLineDash([]);
     }
-
-    /* =========================================================================
-       PRODUCT-GRADE 3D STACKED FLOOR SLABS + ANDROID MINIMALIST VECTOR RENDERER
-       Inspired by Mappedin / Mapbox 3D Indoor & your Android screenshots:
-       1. Translucent 3D perspective parallelogram slabs for every floor (L0, L1, L2)
-          with a subtle 3D slab-edge thickness and internal metric floor grid.
-       2. Pure vertical cyan dashed portal shafts (|), zero horizontal skew.
-       3. Crisp vector corridors, compact circular node dots, dark pill labels,
-          and the Android royal-blue circle + white chevron puck.
-       ========================================================================= */
     function renderMapCanvas() {
-      const w = mapCanvas.width;
-      const h = mapCanvas.height;
-      mapCtx.clearRect(0, 0, w, h);
-
-      const floors = getFloorsList();
-
-      // Compute shared building X,Y footprint so every floor slab forms a uniform stacked 3D tower
-      let minWX = Infinity, maxWX = -Infinity, minWY = Infinity, maxWY = -Infinity;
-      activeMap.nodes.forEach(n => {
-        if (n.x < minWX) minWX = n.x;
-        if (n.x > maxWX) maxWX = n.x;
-        if (n.y < minWY) minWY = n.y;
-        if (n.y > maxWY) maxWY = n.y;
-      });
-      const padWX = 3.2;
-      const padWY = 2.6;
-      const slabMinX = minWX - padWX;
-      const slabMaxX = maxWX + padWX;
-      const slabMinY = minWY - padWY;
-      const slabMaxY = maxWY + padWY;
-      const shearPx = 26; // Subtle 3D perspective parallelogram slant for the floor plate
-
-      // 1. Draw Stacked Translucent 3D Floor Slabs (Bottom-to-Top: L0 -> L1 -> L2)
-      if (showIsoFloorPlanes) {
-        floors.forEach(fl => {
-          const isCurrent = fl === currentFloor;
-          const tl = worldToScreen(slabMinX, slabMinY, fl);
-          const tr = worldToScreen(slabMaxX, slabMinY, fl);
-          const br = worldToScreen(slabMaxX, slabMaxY, fl);
-          const bl = worldToScreen(slabMinX, slabMaxY, fl);
-
-          // Apply subtle perspective shear to the slab corners so each level reads immediately as a 3D horizontal plane
-          const pTL = { x: tl.x + shearPx, y: tl.y };
-          const pTR = { x: tr.x + shearPx, y: tr.y };
-          const pBR = { x: br.x - shearPx, y: br.y };
-          const pBL = { x: bl.x - shearPx, y: bl.y };
-
-          mapCtx.save();
-
-          // 3D Slab Bottom Thickness Rim (4px extruded edge along front & right)
-          const slabDepth = isCurrent ? 5 : 3;
-          mapCtx.beginPath();
-          mapCtx.moveTo(pBL.x, pBL.y);
-          mapCtx.lineTo(pBR.x, pBR.y);
-          mapCtx.lineTo(pTR.x, pTR.y);
-          mapCtx.lineTo(pTR.x, pTR.y + slabDepth);
-          mapCtx.lineTo(pBR.x, pBR.y + slabDepth);
-          mapCtx.lineTo(pBL.x, pBL.y + slabDepth);
-          mapCtx.closePath();
-          mapCtx.fillStyle = isCurrent ? 'rgba(45, 212, 191, 0.28)' : 'rgba(148, 163, 184, 0.08)';
-          mapCtx.fill();
-
-          // Main Translucent Floor Plate Surface
-          mapCtx.beginPath();
-          mapCtx.moveTo(pTL.x, pTL.y);
-          mapCtx.lineTo(pTR.x, pTR.y);
-          mapCtx.lineTo(pBR.x, pBR.y);
-          mapCtx.lineTo(pBL.x, pBL.y);
-          mapCtx.closePath();
-
-          if (isCurrent) {
-            const grad = mapCtx.createLinearGradient(pTL.x, pTL.y, pBR.x, pBR.y);
-            grad.addColorStop(0, 'rgba(30, 41, 59, 0.62)');
-            grad.addColorStop(1, 'rgba(15, 23, 42, 0.72)');
-            mapCtx.fillStyle = grad;
-          } else {
-            mapCtx.fillStyle = 'rgba(30, 41, 59, 0.24)';
-          }
-          mapCtx.fill();
-
-          // Subtle Internal Perspective Grid Lines Inside the Slab
-          mapCtx.strokeStyle = isCurrent ? 'rgba(255, 255, 255, 0.045)' : 'rgba(255, 255, 255, 0.018)';
-          mapCtx.lineWidth = 1;
-          const gridCols = 6;
-          for (let c = 1; c < gridCols; c++) {
-            const t = c / gridCols;
-            const gxTop = pTL.x + (pTR.x - pTL.x) * t;
-            const gyTop = pTL.y + (pTR.y - pTL.y) * t;
-            const gxBot = pBL.x + (pBR.x - pBL.x) * t;
-            const gyBot = pBL.y + (pBR.y - pBL.y) * t;
-            mapCtx.beginPath();
-            mapCtx.moveTo(gxTop, gyTop);
-            mapCtx.lineTo(gxBot, gyBot);
-            mapCtx.stroke();
-          }
-          const gridRows = 3;
-          for (let r = 1; r < gridRows; r++) {
-            const t = r / gridRows;
-            const gxLeft = pTL.x + (pBL.x - pTL.x) * t;
-            const gyLeft = pTL.y + (pBL.y - pTL.y) * t;
-            const gxRight = pTR.x + (pBR.x - pTR.x) * t;
-            const gyRight = pTR.y + (pBR.y - pTR.y) * t;
-            mapCtx.beginPath();
-            mapCtx.moveTo(gxLeft, gyLeft);
-            mapCtx.lineTo(gxRight, gyRight);
-            mapCtx.stroke();
-          }
-
-          // Crisp Slab Perimeter Border (Teal for Active Floor, Subtle Slate for Inactive)
-          mapCtx.beginPath();
-          mapCtx.moveTo(pTL.x, pTL.y);
-          mapCtx.lineTo(pTR.x, pTR.y);
-          mapCtx.lineTo(pBR.x, pBR.y);
-          mapCtx.lineTo(pBL.x, pBL.y);
-          mapCtx.closePath();
-          mapCtx.strokeStyle = isCurrent ? 'rgba(45, 212, 191, 0.78)' : 'rgba(148, 163, 184, 0.22)';
-          mapCtx.lineWidth = isCurrent ? 1.8 : 1.0;
-          mapCtx.stroke();
-
-          // Corner Floor Badge Pill on Each Slab
-          const badgeText = `Floor L${fl}${isCurrent ? ' • ACTIVE' : ''}`;
-          mapCtx.font = isCurrent ? '600 11px "JetBrains Mono", monospace' : '500 10.5px "JetBrains Mono", monospace';
-          const bw = mapCtx.measureText(badgeText).width + 14;
-          const bx = pTL.x + 10;
-          const by = pTL.y + 8;
-
-          mapCtx.fillStyle = isCurrent ? 'rgba(13, 148, 136, 0.28)' : 'rgba(15, 23, 42, 0.75)';
-          mapCtx.strokeStyle = isCurrent ? 'rgba(45, 212, 191, 0.6)' : 'rgba(255, 255, 255, 0.1)';
-          mapCtx.lineWidth = 1;
-          mapCtx.beginPath();
-          mapCtx.roundRect(bx, by, bw, 20, 4);
-          mapCtx.fill();
-          mapCtx.stroke();
-
-          mapCtx.fillStyle = isCurrent ? '#5eead4' : '#94a3b8';
-          mapCtx.fillText(badgeText, bx + 7, by + 14);
-          mapCtx.restore();
-        });
-      }
-
-      // 2. Crisp Minimalist Corridor Edges (Matches Android 1000431410.png)
-      activeMap.edges.forEach(e => {
-        if (e.edgeType === 'vertical_portal') return;
-        const n1 = getNodeById(e.fromNodeId);
-        const n2 = getNodeById(e.toNodeId);
-        if (!n1 || !n2) return;
-        const p1 = nodeToScreen(n1);
-        const p2 = nodeToScreen(n2);
-        const onCurrentFloor = (n1.floorLevel === currentFloor && n2.floorLevel === currentFloor);
-
-        mapCtx.save();
-        mapCtx.beginPath();
-        mapCtx.moveTo(p1.x, p1.y);
-        mapCtx.lineTo(p2.x, p2.y);
-        mapCtx.lineCap = 'round';
-        mapCtx.strokeStyle = onCurrentFloor ? 'rgba(156, 163, 175, 0.82)' : 'rgba(148, 163, 184, 0.32)';
-        mapCtx.lineWidth = onCurrentFloor ? 2.6 : 1.7;
-        mapCtx.stroke();
-        mapCtx.restore();
-      });
-
-      // 3. Pure Vertical Dashed Cyan Portal Lines (Matches Android 1000431410.png & 1000431408.png)
-      activeMap.edges.forEach(e => {
-        if (e.edgeType !== 'vertical_portal') return;
-        const n1 = getNodeById(e.fromNodeId);
-        const n2 = getNodeById(e.toNodeId);
-        if (!n1 || !n2) return;
-        const p1 = nodeToScreen(n1);
-        const p2 = nodeToScreen(n2);
-        const isElev = isElevatorNode(n1) || isElevatorNode(n2);
-        const isBypassed = isAccessibleMode && !isElev;
-
-        mapCtx.save();
-        mapCtx.beginPath();
-        mapCtx.moveTo(p1.x, p1.y);
-        mapCtx.lineTo(p2.x, p2.y);
-        mapCtx.setLineDash([5, 5]);
-        mapCtx.lineCap = 'round';
-        mapCtx.strokeStyle = isBypassed
-          ? 'rgba(239, 68, 68, 0.35)'
-          : (isElev ? '#38bdf8' : '#00e5ff');
-        mapCtx.lineWidth = 2.6;
-        mapCtx.stroke();
-        mapCtx.restore();
-      });
-
-      // 4. Active A* Route Highlight (Glowing Vector Path Across Corridors & Vertical Shafts)
-      if (activeRoute.length > 1) {
-        const routeColor = isSosMode ? '#ef4444' : (isAccessibleMode ? '#06b6d4' : '#38bdf8');
-        const routeGlow = isSosMode
-          ? 'rgba(239, 68, 68, 0.7)'
-          : (isAccessibleMode ? 'rgba(6, 182, 212, 0.7)' : 'rgba(56, 189, 248, 0.7)');
-
-        for (let i = 0; i < activeRoute.length - 1; i++) {
-          const n1 = getNodeById(activeRoute[i]);
-          const n2 = getNodeById(activeRoute[i + 1]);
-          if (!n1 || !n2) continue;
-          const p1 = nodeToScreen(n1);
-          const p2 = nodeToScreen(n2);
-          const isPortalEdge = n1.floorLevel !== n2.floorLevel;
-          const bothCurrent = (n1.floorLevel === currentFloor && n2.floorLevel === currentFloor);
-
-          mapCtx.save();
-          mapCtx.beginPath();
-          mapCtx.moveTo(p1.x, p1.y);
-          mapCtx.lineTo(p2.x, p2.y);
-          mapCtx.lineCap = 'round';
-
-          if (isPortalEdge) {
-            mapCtx.setLineDash([5, 5]);
-            mapCtx.strokeStyle = isSosMode ? '#f87171' : '#00e5ff';
-            mapCtx.shadowColor = 'rgba(0, 229, 255, 0.8)';
-            mapCtx.shadowBlur = 8;
-            mapCtx.lineWidth = 3.2;
-          } else {
-            mapCtx.strokeStyle = routeColor;
-            mapCtx.shadowColor = routeGlow;
-            mapCtx.shadowBlur = bothCurrent ? 10 : 4;
-            mapCtx.globalAlpha = bothCurrent ? 1.0 : 0.65;
-            mapCtx.lineWidth = bothCurrent ? 3.8 : 2.5;
-          }
-          mapCtx.stroke();
-          mapCtx.restore();
+      if (!bounds) return;
+      const ctx=mapCtx, w=mapCanvas.clientWidth, h=mapCanvas.clientHeight;
+      const floors=camera.flat ? [currentFloor] : getFloorsList();
+      const visible=n => !camera.flat || n.floorLevel===currentFloor;
+      const startId=document.getElementById('startNodeSelect').value, endId=document.getElementById('endNodeSelect').value;
+      ctx.clearRect(0,0,w,h);
+      ctx.lineCap='round'; ctx.lineJoin='round';
+      const labelRequests=[];
+      const occupied=[];
+      const routeColor=isSosMode ? ink.exitRoute : ink.route;
+      const nodes=activeMap.nodes.filter(visible);
+      const positions=new Map(nodes.map(n=>[n.nodeId,nodeToScreen(n)]));
+      for (const f of floors) {
+        if (!showIsoFloorPlanes && !camera.flat) continue;
+        const corners=floorCorners(f), focused=f===currentFloor;
+        ctx.beginPath(); corners.forEach((p,i)=>i ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y)); ctx.closePath();
+        ctx.fillStyle=focused ? '#193139' : 'rgba(38,53,68,.66)'; ctx.fill();
+        ctx.strokeStyle=focused ? '#548884' : '#3a4a5b'; ctx.lineWidth=focused ? 1.5 : 1; ctx.stroke();
+        if (!camera.flat) {
+          const anchor=corners.reduce((a,b)=>a.x<b.x ? a : b);
+          labelRequests.push({text:'L'+f,pt:anchor,priority:focused ? 7 : 5,color:focused ? '#a9f7df' : '#c0ceda'});
         }
       }
-
-      // 5. Compact Circular Node Dots + Dark Pill Labels (Matches Android 1000431410.png)
-      const startId = document.getElementById('startNodeSelect').value;
-      const endId = document.getElementById('endNodeSelect').value;
-
-      const sortedNodes = [...activeMap.nodes].sort((a, b) =>
-        (a.floorLevel === currentFloor ? 1 : 0) - (b.floorLevel === currentFloor ? 1 : 0)
-      );
-
-      sortedNodes.forEach(n => {
-        const pt = nodeToScreen(n);
-        const isCurrent = n.floorLevel === currentFloor;
-        const isStart = n.nodeId === startId;
-        const isEnd = n.nodeId === endId;
-        const isHovered = hoveredNode && hoveredNode.nodeId === n.nodeId;
-        const isWaypoint = (n.type || '').toLowerCase().includes('waypoint');
-        const isRouteNode = activeRoute.includes(n.nodeId);
-        const dotColor = getNodeColor(n.type);
-
-        mapCtx.save();
-        mapCtx.globalAlpha = isCurrent ? 1.0 : (isRouteNode || isStart || isEnd ? 0.88 : 0.55);
-
-        if (isHovered) {
-          mapCtx.beginPath();
-          mapCtx.arc(pt.x, pt.y, 13, 0, Math.PI * 2);
-          mapCtx.fillStyle = 'rgba(56, 189, 248, 0.22)';
-          mapCtx.fill();
+      for (const e of activeMap.edges) {
+        const a=getNodeById(e.fromNodeId), b=getNodeById(e.toNodeId);
+        if (!a || !b || !visible(a) || !visible(b)) continue;
+        const vertical=a.floorLevel!==b.floorLevel;
+        const focus=a.floorLevel===currentFloor && b.floorLevel===currentFloor;
+        ctx.globalAlpha=vertical ? 0.72 : (focus ? 0.95 : 0.48);
+        const color=vertical ? (isElevatorNode(a) ? ink.lift : ink.stairs) : '#8b9fb2';
+        line(positions.get(a.nodeId),positions.get(b.nodeId),color,focus ? 2.6 : 1.5,
+          vertical ? (isElevatorNode(a) ? [6,4] : [2,4]) : []);
+      }
+      ctx.globalAlpha=1;
+      for (let i=1;i<activeRoute.length;i++) {
+        const a=positions.get(activeRoute[i-1]), b=positions.get(activeRoute[i]);
+        if (!a || !b) continue;
+        const vertical=getNodeById(activeRoute[i-1]).floorLevel!==getNodeById(activeRoute[i]).floorLevel;
+        line(a,b,'#09232b',6); line(a,b,routeColor,3.6,vertical ? [7,4] : []);
+      }
+      for (const n of nodes) {
+        const p=positions.get(n.nodeId), k=kind(n);
+        const focus=n.floorLevel===currentFloor, hovered=n===hoveredNode, end=n.nodeId===endId, start=n.nodeId===startId;
+        const r=k==='junction' ? 2.5 : 4.3;
+        ctx.globalAlpha=focus || end || start || hovered ? 1 : 0.67;
+        ctx.beginPath();
+        if (k==='lift') ctx.rect(p.x-r,p.y-r,r*2,r*2);
+        else if (k==='stairs') {
+          ctx.moveTo(p.x,p.y-r-1);ctx.lineTo(p.x+r+1,p.y);ctx.lineTo(p.x,p.y+r+1);ctx.lineTo(p.x-r-1,p.y);ctx.closePath();
+        } else ctx.arc(p.x,p.y,r,0,Math.PI*2);
+        ctx.fillStyle=ink[k];ctx.fill();
+        ctx.globalAlpha=1;
+        if (end || hovered) {
+          ctx.beginPath();ctx.arc(p.x,p.y,hovered ? 10 : 8,0,Math.PI*2);
+          ctx.strokeStyle=end ? '#ff9b8c' : '#fff';ctx.lineWidth=2;ctx.stroke();
         }
-
-        if (isEnd) {
-          mapCtx.beginPath();
-          mapCtx.arc(pt.x, pt.y, 10, 0, Math.PI * 2);
-          mapCtx.strokeStyle = '#ef4444';
-          mapCtx.lineWidth = 2.2;
-          mapCtx.stroke();
-        }
-
-        // Compact Node Dot
-        const radius = isWaypoint ? 3.5 : 5.2;
-        mapCtx.beginPath();
-        mapCtx.arc(pt.x, pt.y, radius, 0, Math.PI * 2);
-        mapCtx.fillStyle = dotColor;
-        mapCtx.fill();
-
-        // Dark Rounded Label Pill next to Non-Waypoint Nodes (or Hovered Waypoint)
-        if (!isWaypoint || isHovered || isStart || isEnd) {
-          const labelText = n.label;
-          mapCtx.font = isCurrent ? '600 11px "Inter", sans-serif' : '500 10.5px "Inter", sans-serif';
-          const textW = mapCtx.measureText(labelText).width;
-          const lx = pt.x + 8;
-          const ly = pt.y - 8;
-
-          mapCtx.fillStyle = 'rgba(15, 18, 25, 0.88)';
-          mapCtx.beginPath();
-          mapCtx.roundRect(lx - 4, ly - 1, textW + 8, 17, 3);
-          mapCtx.fill();
-
-          mapCtx.fillStyle = isCurrent ? '#f8fafc' : '#cbd5e1';
-          mapCtx.fillText(labelText, lx, pt.y + 4);
-        }
-        mapCtx.restore();
-      });
-
-      // 6. Android-Matched Royal-Blue Circle + White Directional Navigation Chevron Puck!
-      let puckX = simState.x;
-      let puckY = simState.y;
-      let puckFloor = currentFloor;
-      let puckAngle = simState.angle;
-
-      if (!simState.active) {
-        const startNode = getNodeById(startId);
-        if (startNode) {
-          puckX = startNode.x;
-          puckY = startNode.y;
-          puckFloor = startNode.floorLevel;
-          if (activeRoute.length > 1) {
-            const nextNode = getNodeById(activeRoute[1]);
-            if (nextNode && nextNode.floorLevel === startNode.floorLevel) {
-              const pStart = nodeToScreen(startNode);
-              const pNext = nodeToScreen(nextNode);
-              puckAngle = Math.atan2(pNext.y - pStart.y, pNext.x - pStart.x);
-            } else {
-              puckAngle = -Math.PI / 2;
-            }
-          } else {
-            puckAngle = -Math.PI / 2;
-          }
+        if (hovered || end || start || (focus && k!=='junction'))
+          labelRequests.push({text:n.label || n.type || 'Waypoint',pt:p,priority:hovered ? 10 : end ? 9 : start ? 8 : 4,color:'#f4f7fb'});
+      }
+      // Place important labels first; try both sides and a second row before hiding a collision.
+      ctx.font='600 12px Inter, system-ui, sans-serif';
+      for (const l of labelRequests.sort((a,b)=>b.priority-a.priority)) {
+        const width=Math.ceil(ctx.measureText(l.text).width)+10;
+        for (const [dx,dy] of [[9,-11],[-width-9,-11],[9,-29],[-width-9,6],[9,7]]) {
+          const x=l.pt.x+dx,y=l.pt.y+dy;
+          if (x<2 || x+width>w-2 || y<2 || y+19>h-2 ||
+             occupied.some(r=>x<r.x+r.w+2 && x+width>r.x-2 && y<r.y+21 && y+19>r.y-2)) continue;
+          ctx.beginPath();ctx.roundRect(x,y,width,19,4);ctx.fillStyle='#101c29';ctx.fill();
+          ctx.fillStyle=l.color;ctx.fillText(l.text,x+5,y+14);
+          occupied.push({x,y,w:width});break;
         }
       }
-
-      const puckPt = worldToScreen(puckX, puckY, puckFloor);
-      mapCtx.save();
-      mapCtx.translate(puckPt.x, puckPt.y);
-
-      if (simState.active) {
-        const particleFill = isSosMode ? 'rgba(239, 68, 68, 0.45)' : 'rgba(56, 189, 248, 0.45)';
-        for (let p = 0; p < 12; p++) {
-          const ang = (p / 12) * Math.PI * 2 + (performance.now() * 0.0022);
-          const rad = 14 + (p % 2) * 4;
-          mapCtx.beginPath();
-          mapCtx.arc(Math.cos(ang) * rad, Math.sin(ang) * rad, 1.6, 0, Math.PI * 2);
-          mapCtx.fillStyle = particleFill;
-          mapCtx.fill();
-        }
+      const start=getNodeById(startId);
+      if (!start) return;
+      const moving=simState.active || simState.arrived;
+      const floor=moving ? simState.floor : start.floorLevel;
+      if (camera.flat && Math.round(floor)!==currentFloor) return;
+      const p=moving ? worldToScreen(simState.x,simState.y,floor) : nodeToScreen(start);
+      const index=moving ? simState.segIndex : 0;
+      const a=getNodeById(activeRoute[index]), b=getNodeById(activeRoute[index+1]);
+      let angle=-Math.PI/2;
+      if (a && b) {
+        const u=nodeToScreen(a),v=nodeToScreen(b);
+        angle=Math.atan2(v.y-u.y,v.x-u.x);
       }
-
-      // Solid Royal-Blue Circle Base (Matches Android 1000431410.png)
-      mapCtx.beginPath();
-      mapCtx.arc(0, 0, 12, 0, Math.PI * 2);
-      mapCtx.fillStyle = isSosMode ? '#dc2626' : '#1d4ed8';
-      mapCtx.fill();
-
-      // Crisp White Navigation Chevron Arrowhead Inside Circle
-      mapCtx.rotate(puckAngle);
-      mapCtx.beginPath();
-      mapCtx.moveTo(8, 0);
-      mapCtx.lineTo(-6, 6.5);
-      mapCtx.lineTo(-2.8, 0);
-      mapCtx.lineTo(-6, -6.5);
-      mapCtx.closePath();
-      mapCtx.fillStyle = '#ffffff';
-      mapCtx.fill();
-      mapCtx.restore();
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(angle);
+      ctx.beginPath();ctx.arc(0,0,9,0,Math.PI*2);ctx.fillStyle=isSosMode ? '#ad352f' : '#2453a1';ctx.fill();
+      ctx.lineWidth=2;ctx.strokeStyle='#e4f2ff';ctx.stroke();
+      ctx.beginPath();ctx.moveTo(6,0);ctx.lineTo(-4,4.5);ctx.lineTo(-2,0);ctx.lineTo(-4,-4.5);ctx.closePath();ctx.fillStyle='white';ctx.fill();
+      ctx.restore();
     }
 
     function highlightActiveWaypointStep(idx) {
-      document.querySelectorAll('.route-step-item').forEach((el, i) => {
-        el.classList.toggle('active-step', i === idx);
-      });
+      const list=document.getElementById('routeStepsList');
+      list.querySelector('.active-step')?.classList.remove('active-step');
+      const active=document.getElementById('route-step-dom-'+idx) ||
+        (idx>=0 ? [...list.children].find(row=>Number(row.dataset.end)>idx) : null);
+      active?.classList.add('active-step');
     }
 
     function stopRouteSimulation() {
       if (simState.animId) cancelAnimationFrame(simState.animId);
       simState.active = false;
+      simState.arrived = false;
       simState.inTransit = false;
       simState.animId = null;
       document.getElementById('transitModalOverlay').classList.remove('show');
       const btn = document.getElementById('simulateWalkBtn');
-      if (btn) btn.innerText = '▶ Simulate Walk';
+      if (btn) btn.innerText = 'Simulate walk';
       const pdrEl = document.getElementById('metricPdrState');
       if (pdrEl) {
-        pdrEl.innerText = 'Standby (Ready)';
+        pdrEl.innerText = 'Ready';
         pdrEl.style.color = '#38bdf8';
       }
       highlightActiveWaypointStep(-1);
@@ -2079,214 +1991,79 @@
       simState.transitElapsedMs = simState.transitDurationMs + 20;
     }
 
-    function startRouteSimulation(keepSosFlag = false) {
-      if (simState.active && !keepSosFlag) {
-        stopRouteSimulation();
-        renderMapCanvas();
-        return;
-      }
-      if (activeRoute.length < 2) return;
-
-      if (simState.animId) cancelAnimationFrame(simState.animId);
-      simState.active = true;
-      simState.segIndex = 0;
-      simState.segProgress = 0;
-      simState.inTransit = false;
-      simState.transitElapsedMs = 0;
-      simState.lastFrameTime = performance.now();
-
-      document.getElementById('simulateWalkBtn').innerText = '⏹ Stop Simulation';
-
-      const firstNode = getNodeById(activeRoute[0]);
-      if (firstNode) {
-        simState.x = firstNode.x;
-        simState.y = firstNode.y;
-        if (firstNode.floorLevel !== currentFloor) {
-          selectFloor(firstNode.floorLevel);
-        }
-      }
-
-      function stepFrame(now) {
-        if (!simState.active) return;
-        const dtMs = Math.min(80, Math.max(1, now - simState.lastFrameTime));
-        simState.lastFrameTime = now;
-
-        const n1 = getNodeById(activeRoute[simState.segIndex]);
-        const n2 = getNodeById(activeRoute[simState.segIndex + 1]);
-        if (!n1 || !n2) {
-          stopRouteSimulation();
-          renderMapCanvas();
-          return;
-        }
-
-        highlightActiveWaypointStep(simState.segIndex);
-        const isPortal = n1.floorLevel !== n2.floorLevel;
-        const overlay = document.getElementById('transitModalOverlay');
-        const pdrEl = document.getElementById('metricPdrState');
-
-        if (isPortal) {
-          const usingElevator = isElevatorNode(n1) || isElevatorNode(n2);
-          if (!simState.inTransit) {
-            simState.inTransit = true;
-            simState.transitElapsedMs = 0;
-            const portalKind = usingElevator ? '🛗 Elevator Cabin Portal' : '🪜 Stairwell Portal';
-            document.getElementById('transitModalBadge').innerText = usingElevator
-              ? '♿ ACCESSIBLE ELEVATOR TRANSIT STATE'
-              : '⚠ PROXIMITY STAIRWELL TRANSIT STATE';
-            document.getElementById('transitModalTitle').innerText =
-              `${portalKind}: Floor L${n1.floorLevel} → Floor L${n2.floorLevel}`;
-            document.getElementById('transitModalDesc').innerText =
-              `Traversing ${n1.label} to ${n2.label}. PDR step integration paused to prevent vertical heading drift.`;
-            overlay.classList.add('show');
-          }
-
-          if (pdrEl) {
-            pdrEl.innerText = usingElevator ? 'PAUSED (Elevator)' : 'PAUSED (Stair Portal)';
-            pdrEl.style.color = usingElevator ? '#67e8f9' : '#00e5ff';
-          }
-
-          simState.transitElapsedMs += dtMs;
-          simState.x = n1.x;
-          simState.y = n1.y;
-          simState.angle = n2.floorLevel > n1.floorLevel ? -Math.PI / 2 : Math.PI / 2;
-
-          const pct = Math.min(100, (simState.transitElapsedMs / simState.transitDurationMs) * 100);
-          document.getElementById('transitProgressBar').style.width = `${pct}%`;
-
-          if (simState.transitElapsedMs >= simState.transitDurationMs * 0.55 && currentFloor !== n2.floorLevel) {
-            selectFloor(n2.floorLevel);
-          }
-
-          if (simState.transitElapsedMs >= simState.transitDurationMs) {
-            simState.inTransit = false;
-            overlay.classList.remove('show');
-            selectFloor(n2.floorLevel);
-            simState.segIndex++;
-            simState.segProgress = 0;
-
-            if (simState.segIndex >= activeRoute.length - 1) {
-              simState.x = n2.x;
-              simState.y = n2.y;
-              highlightActiveWaypointStep(activeRoute.length - 1);
-              renderMapCanvas();
-              stopRouteSimulation();
-              return;
-            }
-          }
-        } else {
-          overlay.classList.remove('show');
-          if (pdrEl) {
-            pdrEl.innerText = 'TRACKING (400 Particles)';
-            pdrEl.style.color = '#10b981';
-          }
-
-          const dx = n2.x - n1.x;
-          const dy = n2.y - n1.y;
-          const distMeters = Math.max(0.5, Math.hypot(dx, dy));
-          const p1Screen = nodeToScreen(n1);
-          const p2Screen = nodeToScreen(n2);
-          simState.angle = Math.atan2(p2Screen.y - p1Screen.y, p2Screen.x - p1Screen.x);
-
-          const metersPerMs = 3.8 / 1000;
-          simState.segProgress += (dtMs * metersPerMs) / distMeters;
-
-          if (simState.segProgress >= 1) {
-            simState.segProgress = 0;
-            simState.segIndex++;
-            if (simState.segIndex >= activeRoute.length - 1) {
-              simState.x = n2.x;
-              simState.y = n2.y;
-              highlightActiveWaypointStep(activeRoute.length - 1);
-              renderMapCanvas();
-              stopRouteSimulation();
-              return;
-            }
-          } else {
-            simState.x = n1.x + dx * simState.segProgress;
-            simState.y = n1.y + dy * simState.segProgress;
-          }
-        }
-
-        renderMapCanvas();
-        simState.animId = requestAnimationFrame(stepFrame);
-      }
-
-      simState.animId = requestAnimationFrame(stepFrame);
+    const contacts=new Map();
+    let gestureMoved=false;
+    function pairMetrics() {
+      const [a,b]=[...contacts.values()];
+      return {x:(a.x+b.x)/2,y:(a.y+b.y)/2,span:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y))};
     }
-
-    let clickDownPos = { x: 0, y: 0 };
-
-    mapCanvas.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      handleCanvasNodeClick(e, true);
+    mapCanvas.addEventListener('contextmenu',e=>{e.preventDefault();handleCanvasNodeClick(e,true);});
+    mapCanvas.addEventListener('pointerdown',e=>{
+      if (e.button!==0 || contacts.size>=2) return;
+      const pt=getCanvasMouseCoords(e);
+      if (!contacts.size) gestureMoved=false; else gestureMoved=true;
+      contacts.set(e.pointerId,{...pt,down:pt});mapCanvas.setPointerCapture(e.pointerId);
+      hoveredNode=null;
     });
-
-    mapCanvas.addEventListener('mousedown', (e) => {
-      if (e.button === 2) return;
-      viewTransform.isDragging = true;
-      viewTransform.lastX = e.clientX;
-      viewTransform.lastY = e.clientY;
-      clickDownPos = { x: e.clientX, y: e.clientY };
-    });
-
-    window.addEventListener('mouseup', (e) => {
-      if (!viewTransform.isDragging) return;
-      viewTransform.isDragging = false;
-      const moveDist = Math.hypot(e.clientX - clickDownPos.x, e.clientY - clickDownPos.y);
-      if (moveDist < 8) {
-        handleCanvasNodeClick(e, false);
-      }
-    });
-
-    mapCanvas.addEventListener('mousemove', (e) => {
-      if (viewTransform.isDragging) {
-        const rect = mapCanvas.getBoundingClientRect();
-        const scaleX = mapCanvas.width / rect.width;
-        const scaleY = mapCanvas.height / rect.height;
-        viewTransform.offsetX += (e.clientX - viewTransform.lastX) * scaleX;
-        viewTransform.offsetY += (e.clientY - viewTransform.lastY) * scaleY;
-        viewTransform.lastX = e.clientX;
-        viewTransform.lastY = e.clientY;
-        renderMapCanvas();
+    mapCanvas.addEventListener('pointermove',e=>{
+      const p=getCanvasMouseCoords(e), prev=contacts.get(e.pointerId);
+      if (!prev) {
+        if (contacts.size || e.pointerType!=='mouse') return;
+        const hit=findNodeAtScreenPos(p.x,p.y);
+        if (hit!==hoveredNode) {
+          hoveredNode=hit;mapCanvas.style.cursor=hit?'pointer':'grab';
+          document.getElementById('hoverNodeReadout').textContent=hit ? (hit.label || hit.type)+' · L'+hit.floorLevel : 'Tap a point to set the selected endpoint.';
+          renderMapCanvas();
+        }
         return;
       }
-
-      const pt = getCanvasMouseCoords(e);
-      const hit = findNodeAtScreenPos(pt.x, pt.y);
-      hoveredNode = hit;
-      mapCanvas.style.cursor = hit ? 'pointer' : 'grab';
-
-      const readout = document.getElementById('hoverNodeReadout');
-      if (hit) {
-        const partners = getPortalPartners(hit.nodeId);
-        const partnerText = partners.length
-          ? ` ⇅ Vertical Portal to ${partners.map(p => `${p.label} (L${p.floorLevel})`).join(', ')}`
-          : '';
-        readout.innerText = `Node: ${hit.label} [Floor L${hit.floorLevel} • ${hit.type}]${partnerText}`;
+      if (!gestureMoved && Math.hypot(p.x-prev.down.x,p.y-prev.down.y)<5) return;
+      gestureMoved=true;
+      const oldPair=contacts.size===2 ? pairMetrics() : null;
+      contacts.set(e.pointerId,{...p,down:prev.down});
+      if (oldPair) {
+        const next=pairMetrics();zoomAt(next.span/oldPair.span,oldPair.x,oldPair.y);
+        camera.ox+=next.x-oldPair.x;camera.oy+=next.y-oldPair.y;
+      } else if (camera.pan || camera.flat || e.altKey) {
+        camera.ox+=p.x-prev.x; camera.oy+=p.y-prev.y;
       } else {
-        readout.innerText = 'Click any node to set Origin • Shift+Click or Right-Click sets Destination • Dashed Cyan = Vertical Portal';
+        camera.yaw+=(p.x-prev.x)*0.009;
+        camera.pitch=Math.max(0.12,Math.min(0.95,camera.pitch+(prev.y-p.y)*0.005));
       }
       renderMapCanvas();
     });
-
-    mapCanvas.addEventListener('wheel', (e) => {
+    mapCanvas.addEventListener('pointerup',e=>{
+      const prev=contacts.get(e.pointerId);
+      if (!prev) return;
+      contacts.delete(e.pointerId);
+      if (!gestureMoved && Math.hypot(getCanvasMouseCoords(e).x-prev.down.x,getCanvasMouseCoords(e).y-prev.down.y)<5)
+        handleCanvasNodeClick(e);
+    });
+    for (const event of ['pointercancel','lostpointercapture']) mapCanvas.addEventListener(event,e=>contacts.delete(e.pointerId));
+    mapCanvas.addEventListener('pointerleave',()=>{if (hoveredNode) { hoveredNode=null;renderMapCanvas();
+      document.getElementById('hoverNodeReadout').textContent='Tap a point to set the selected endpoint.'; }});
+    mapCanvas.addEventListener('wheel',e=>{
+      e.preventDefault();const p=getCanvasMouseCoords(e);zoomAt(e.deltaY<0 ? 1.12 : 1/1.12,p.x,p.y);renderMapCanvas();
+    },{passive:false});
+    mapCanvas.addEventListener('keydown',e=>{
+      if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','=','-','Home'].includes(e.key)) return;
       e.preventDefault();
-      adjustCanvasZoom(e.deltaY < 0 ? 1.12 : 0.89);
-    }, { passive: false });
-
-    function findNodeAtScreenPos(mx, my) {
-      const hitRadius = 20;
-      const activeFloorNodes = activeMap.nodes.filter(n => n.floorLevel === currentFloor);
-      for (const n of activeFloorNodes) {
-        const pt = nodeToScreen(n);
-        if (Math.hypot(mx - pt.x, my - pt.y) <= hitRadius) return n;
+      if (e.key==='Home') return resetCamera();
+      if (e.key==='+' || e.key==='=' || e.key==='-') return adjustCanvasZoom(e.key==='-' ? 0.8 : 1.25);
+      const dx=Number(e.key==='ArrowRight')-Number(e.key==='ArrowLeft'),dy=Number(e.key==='ArrowDown')-Number(e.key==='ArrowUp');
+      if (camera.pan || camera.flat) { camera.ox+=dx*20; camera.oy+=dy*20; }
+      else {camera.yaw+=dx*0.18;camera.pitch=Math.max(0.12,Math.min(0.95,camera.pitch-dy*0.08));}
+      renderMapCanvas();
+    });
+    function findNodeAtScreenPos(x,y) {
+      let best=null,score=Infinity;
+      for (const n of activeMap.nodes) {
+        if (camera.flat && n.floorLevel!==currentFloor) continue;
+        const p=nodeToScreen(n),d=Math.hypot(x-p.x,y-p.y);
+        const rank=d+(n.floorLevel===currentFloor ? 0 : 1.5);
+        if (d<=12 && rank<score) {score=rank;best=n;}
       }
-      const otherFloorNodes = activeMap.nodes.filter(n => n.floorLevel !== currentFloor);
-      for (const n of otherFloorNodes) {
-        const pt = nodeToScreen(n);
-        if (Math.hypot(mx - pt.x, my - pt.y) <= hitRadius) return n;
-      }
-      return null;
+      return best;
     }
 
     function handleCanvasNodeClick(e, forceTargetMode = false) {
@@ -2300,12 +2077,6 @@
       const settingTarget = forceTargetMode || e.shiftKey || canvasClickMode === 'end';
 
       if (settingTarget) {
-        const currentStartId = document.getElementById('startNodeSelect').value;
-        const startNode = getNodeById(currentStartId);
-        const partners = getPortalPartners(hit.nodeId);
-        if (partners.length > 0 && startNode && startNode.floorLevel === hit.floorLevel) {
-          hit = partners[0];
-        }
         document.getElementById('endNodeSelect').value = hit.nodeId;
         setCanvasClickMode('start');
       } else {
@@ -2316,35 +2087,21 @@
       computeAndRenderRoute();
     }
 
-    function switchPresetMap(presetKey) {
-      if (presetKey === 'home') {
-        activeMap = JSON.parse(JSON.stringify(HOME_SURVEY_MAP));
-      } else {
-        activeMap = JSON.parse(JSON.stringify(HORIZON_COMPLEX_MAP));
-      }
-      currentFloor = 0;
-      initMapConsoleUI();
-    }
-
     document.getElementById('jsonMapUpload').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
+      const request = ++mapRequest;
       const reader = new FileReader();
       reader.onload = (ev) => {
         try {
+          if (request !== mapRequest) return;
           const parsed = JSON.parse(ev.target.result);
-          if (!Array.isArray(parsed.nodes) || !Array.isArray(parsed.edges)) {
-            alert('Invalid IndoorPulse map JSON: missing nodes[] or edges[] arrays.');
-            return;
-          }
-          activeMap = parsed;
-          currentFloor = getFloorsList()[0];
-          initMapConsoleUI();
+          openImportedMap(parsed);
         } catch (err) {
           alert('Failed to parse JSON file: ' + err.message);
         }
       };
-      reader.readAsText(file);
+      reader.readAsText(file); e.target.value='';
     });
 
     function exportActiveMapJson() {
@@ -2366,18 +2123,16 @@
     }
 
     async function loadCloudJsonMapFromUrl(fileUrl) {
+      const request = ++mapRequest;
       try {
         const res = await fetch(fileUrl);
-        const parsed = await res.json();
-        if (Array.isArray(parsed.nodes) && Array.isArray(parsed.edges)) {
-          activeMap = parsed;
-          currentFloor = getFloorsList()[0];
-          initMapConsoleUI();
-          document.getElementById('web-console').scrollIntoView({ behavior: 'smooth' });
-        } else {
-          alert('Cloud JSON does not match IndoorPulse map schema.');
-        }
+        if (!res.ok) throw new Error('Map download failed');
+        const map = await res.json();
+        if (request !== mapRequest) return;
+        openImportedMap(map);
+        document.getElementById('web-console').scrollIntoView({behavior:'smooth'});
       } catch (e) {
+        if (request !== mapRequest) return;
         alert('Could not fetch cloud JSON map directly (check CORS or download and click Import).');
       }
     }
@@ -2439,7 +2194,7 @@
             }
           }
         }
-        requestAnimationFrame(animate);
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(animate);
       }
       animate();
     })();
@@ -2498,12 +2253,10 @@
           const author = item.commit.author.name || 'Contributor';
           const commitDate = new Date(item.commit.author.date).toISOString().split('T')[0];
           const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${commitDate}</td>
-            <td><a href="${item.html_url}" target="_blank" class="commit-hash">${hash}</a></td>
-            <td>${message}</td>
-            <td>${author}</td>
-          `;
+          row.insertCell().textContent=commitDate;
+          const link=document.createElement('a');link.href=item.html_url;link.target='_blank';link.rel='noopener';
+          link.className='commit-hash';link.textContent=hash;row.insertCell().append(link);
+          row.insertCell().textContent=message;row.insertCell().textContent=author;
           tableBody.appendChild(row);
         });
       } catch (error) {
@@ -2512,76 +2265,97 @@
     }
 
     const API_BASE_URL = "https://indoorpulse.duckdns.org";
-    let globalRecords = [];
-
-    function loadIntoViewer(recordIndex, shouldScroll = true) {
-      const item = globalRecords[recordIndex];
-      if(!item) return;
-
-      const isJsonMap = (item.filename && item.filename.toLowerCase().endsWith('.json')) ||
-                        (item.file_url && item.file_url.toLowerCase().endsWith('.json'));
-      if (isJsonMap) {
-        loadCloudJsonMapFromUrl(item.file_url);
-        return;
-      }
-      
-      document.getElementById('docViewerTitle').innerText = item.title;
-      document.getElementById('docViewerVersion').innerText = item.version;
-      document.getElementById('docViewerDate').innerText = `Date: ${item.presentation_date}`;
-      document.getElementById('docViewer').src = item.file_url;
-      document.getElementById('docSourceText').innerText = item.filename || "B2 Storage Object";
-      document.getElementById('pdfOpenLink').href = item.file_url;
-      document.getElementById('pdfDownloadLink').href = item.file_url;
-      
-      if (shouldScroll) {
-        document.getElementById('presentation').scrollIntoView({ behavior: 'smooth' });
-      }
+    const pagesBase = location.protocol==='file:' ? 'https://rizwanhanda.github.io/navix/' : document.baseURI;
+    if (location.protocol==='file:') {
+      document.querySelectorAll('a[href^="assets/"]').forEach(a=>{a.href=new URL(a.getAttribute('href'),pagesBase).href;});
     }
-
-    async function fetchServerRecords() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/presentations`);
-        globalRecords = await res.json();
-        
-        if (globalRecords && globalRecords.length > 0) {
-          const tbody = document.getElementById('version-archive-body');
-          tbody.innerHTML = '';
-          
-          let firstPdfIdx = -1;
-          globalRecords.forEach((item, index) => {
-            const isJson = (item.filename && item.filename.toLowerCase().endsWith('.json')) ||
-                           (item.file_url && item.file_url.toLowerCase().endsWith('.json'));
-            if (!isJson && firstPdfIdx === -1) firstPdfIdx = index;
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td><span class="version-badge">${item.version}</span></td>
-              <td>${item.title}</td>
-              <td>${item.presentation_date}</td>
-              <td>${item.change_summary}</td>
-              <td>
-                <button onclick="loadIntoViewer(${index}, true)" class="btn-action btn-action-primary">
-                  ${isJson ? 'Load Map in Console ↗' : 'View on Page ↗'}
-                </button>
-              </td>
-            `;
-            tbody.appendChild(tr);
-          });
-
-          if (firstPdfIdx !== -1) loadIntoViewer(firstPdfIdx, false);
-        } else {
-          document.getElementById('version-archive-body').innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px;">No presentations uploaded yet.</td></tr>`;
+    const bundledDocuments=[
+      ['Final project report','project-report-final/IndoorPulse_Final_Report_Submission.pdf'],
+      ['Final presentation','final-ppt/IndoorPulse_Final_Presentation.pdf'],
+      ['Planning and architecture deck','assets/docs/Indoor_Pulse_PDF.pdf'],
+      ['Milestone plan','assets/docs/Milestone Plan.pdf'],
+      ['Project proposal and feasibility report','assets/docs/Project Proposal & Feasibility Report.pdf']
+    ].map(([title,path])=>({title,file_url:new URL(path,pagesBase).href,filename:path.split('/').pop(),repository:true}));
+    let globalRecords=[],selectedDocument='',documentChosen=false,archiveRequest=0;
+    function assetType(item) {
+      const names=[item.filename,new URL(item.file_url,pagesBase).pathname].filter(Boolean);
+      if (names.some(s=>/\.json$/i.test(s))) return 'map';
+      if (names.some(s=>/\.pdf$/i.test(s))) return 'pdf';
+      return 'file';
+    }
+    function loadIntoViewer(index,scroll=true,userChoice=true) {
+      const item=globalRecords[index];
+      if (!item) return;
+      if (assetType(item)==='map') {loadCloudJsonMapFromUrl(item.file_url);return;}
+      if (assetType(item)!=='pdf') return;
+      documentChosen ||= userChoice;
+      selectedDocument=item.file_url;
+      const el=id=>document.getElementById(id);
+      el('documentPicker').value=String(index);
+      el('docViewerTitle').textContent=item.title;
+      el('docViewerVersion').textContent=item.version || 'Repository copy';
+      el('docViewerDate').textContent=item.presentation_date || '';
+      if (el('docViewer').getAttribute('src')!==item.file_url) el('docViewer').src=item.file_url;
+      el('docViewer').title=item.title;
+      el('docSourceText').textContent=item.filename || item.title;
+      el('pdfOpenLink').href=el('pdfDownloadLink').href=item.file_url;
+      if (scroll) el('presentation').scrollIntoView({behavior:'smooth'});
+    }
+    function showArchive(records,notice) {
+      const picker=document.getElementById('documentPicker'),body=document.getElementById('version-archive-body');
+      globalRecords=[...records,...bundledDocuments.filter(doc=>!records.some(r=>r.file_url===doc.file_url))];
+      picker.replaceChildren();body.replaceChildren();
+      const groups=new Map();
+      globalRecords.forEach((item,index)=>{
+        const type=assetType(item);
+        if (type==='pdf') {
+          const group=item.repository ? 'Project documents' : 'Archive uploads';
+          if (!groups.has(group)) {
+            const optgroup=document.createElement('optgroup');optgroup.label=group;picker.append(optgroup);groups.set(group,optgroup);
+          }
+          const label=[item.title,item.version,item.presentation_date].filter(Boolean).join(' · ');
+          groups.get(group).append(new Option(label,String(index)));
         }
-      } catch (e) {
-        document.getElementById('version-archive-body').innerHTML = `
-          <tr>
-            <td><span class="version-badge">v1.0.0</span></td>
-            <td>IndoorPulse Planning & Architecture Deck</td>
-            <td>Odd Sem 2026</td>
-            <td>Initial architecture, PDR state machine, and Gantt milestone baseline</td>
-            <td><a href="assets/docs/Indoor_Pulse_PDF.pdf" target="_blank" class="btn-action btn-action-primary">Open PDF ↗</a></td>
-          </tr>
-        `;
+        const row=body.insertRow();
+        for (const value of [item.version || 'Repository',item.title,item.presentation_date || '—',item.change_summary || 'Repository copy'])
+          row.insertCell().textContent=value;
+        const cell=row.insertCell();
+        if (type==='file') {
+          const link=document.createElement('a');link.href=item.file_url;link.target='_blank';link.rel='noopener';
+          link.className='btn-action';link.textContent='Open file';cell.append(link);
+        } else {
+          const button=document.createElement('button');button.type='button';button.className='btn-action btn-action-primary';
+          button.textContent=type==='map' ? 'Load map' : 'View on page';
+          button.onclick=()=>loadIntoViewer(index);cell.append(button);
+        }
+      });
+      const keep=documentChosen ? globalRecords.findIndex(item=>item.file_url===selectedDocument) : -1;
+      loadIntoViewer(keep>=0 ? keep : globalRecords.findIndex(item=>assetType(item)==='pdf'),false,false);
+      document.getElementById('archiveStatus').textContent=notice;
+    }
+    async function fetchServerRecords() {
+      const sequence=++archiveRequest;
+      if (!globalRecords.length) showArchive([],'Loading archive uploads…');
+      try {
+        const res=await fetch(API_BASE_URL+'/api/presentations',{signal:AbortSignal.timeout(10000)});
+        if (!res.ok) throw new Error('Archive unavailable');
+        const data=await res.json();
+        if (!Array.isArray(data)) throw new Error('Unexpected archive format');
+        if (sequence!==archiveRequest) return;
+        const records=data.flatMap(item=>{
+          if (!item || typeof item.file_url!=='string' || !item.file_url.trim()) return [];
+          try {
+            const url=new URL(item.file_url,API_BASE_URL);
+            if (!['https:','http:'].includes(url.protocol)) return [];
+            return [{...item,file_url:url.href,title:item.title || item.filename || 'Archive upload'}];
+          } catch {return [];}
+        });
+        showArchive(records,records.length ? '' : 'No archive uploads yet. Project documents are available below.');
+      } catch {
+        if (sequence!==archiveRequest) return;
+        const previous=globalRecords.filter(item=>!item.repository);
+        showArchive(previous,previous.length ? 'Archive refresh unavailable. Showing the last loaded list.' :
+          'Archive service unavailable. You can still open the project documents.');
       }
     }
 
@@ -2623,8 +2397,8 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      resizeMapCanvas();
       initMapConsoleUI();
+      resizeMapCanvas();
       fetchLiveCommits();
       fetchServerRecords();
     });

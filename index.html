@@ -550,6 +550,7 @@
     .form-control::placeholder { color: rgba(255, 255, 255, 0.2); }
     .quick-links, .map-library, .camera-row, .document-choice {display:flex;align-items:center;flex-wrap:wrap;gap:.65rem}
     .quick-links {margin-top:1rem}
+    .repo-label,#pickerNotice {color:var(--text-muted);font-size:.85rem}
     .map-library,.document-choice {padding:1rem 1.2rem;border-bottom:1px solid var(--border);background:#0e1725}
     .map-library label,.document-choice label {font-weight:600;font-size:.9rem}
     .map-library select,.document-choice select {width:auto;max-width:100%;flex:1 1 14rem;font:inherit;font-size:.88rem}
@@ -642,14 +643,19 @@
       <div class="section-header">
         <h2 class="section-title">Project documents</h2>
         <div class="action-group">
+          <span class="repo-label">GitHub files</span>
+          <a href="project-report-final/IndoorPulse_Final_Report_Submission.pdf" target="_blank" rel="noopener" class="btn-action">Final report ↗</a>
+          <a href="final-ppt/IndoorPulse_Final_Presentation.pdf" target="_blank" rel="noopener" class="btn-action">Presentation ↗</a>
+          <a href="assets/docs/Project%20Proposal%20%26%20Feasibility%20Report.pdf" target="_blank" rel="noopener" class="btn-action">Project proposal ↗</a>
           <a href="assets/docs/Gantt%20Chart.png" target="_blank" class="btn-action">Gantt Chart ↗</a>
           <a href="assets/docs/Milestone%20Plan.pdf" target="_blank" class="btn-action">Milestone Plan ↗</a>
         </div>
       </div>
 
       <div class="viewer-container" id="presentationViewer">
-        <div class="document-choice"><label for="documentPicker">Choose document</label>
-          <select id="documentPicker" class="console-select" onchange="loadIntoViewer(Number(this.value),false)"></select></div>
+        <div class="document-choice"><label for="documentPicker">EC2 uploads</label>
+          <select id="documentPicker" class="console-select" disabled hidden onchange="loadIntoViewer(Number(this.value),false)"></select>
+          <span id="pickerNotice" role="status">Loading uploaded PDFs…</span></div>
         <div class="viewer-header">
           <div class="viewer-meta">
             <strong id="docViewerTitle" style="color: #fff; font-size: 1.05rem; font-family: 'Inter', sans-serif;">Final project report</strong>
@@ -671,8 +677,8 @@
             <button onclick="toggleBrowserFullscreen()" class="btn-action btn-action-primary" id="fullscreenToggleBtn">
               <span>Maximize Viewer</span>
             </button>
-            <a id="pdfOpenLink" href="assets/docs/Indoor_Pulse_PDF.pdf" target="_blank" class="btn-action"><span>Open in New Tab ↗</span></a>
-            <a id="pdfDownloadLink" href="assets/docs/Indoor_Pulse_PDF.pdf" download class="btn-action"><span>Download PDF ↓</span></a>
+            <a id="pdfOpenLink" hidden target="_blank" class="btn-action"><span>Open in New Tab ↗</span></a>
+            <a id="pdfDownloadLink" hidden download class="btn-action"><span>Download PDF ↓</span></a>
           </div>
         </div>
       </div>
@@ -2267,15 +2273,9 @@
     const API_BASE_URL = "https://indoorpulse.duckdns.org";
     const pagesBase = location.protocol==='file:' ? 'https://rizwanhanda.github.io/navix/' : document.baseURI;
     if (location.protocol==='file:') {
-      document.querySelectorAll('a[href^="assets/"]').forEach(a=>{a.href=new URL(a.getAttribute('href'),pagesBase).href;});
+      document.querySelectorAll('#presentation .section-header a[href]').forEach(a=>{a.href=new URL(a.getAttribute('href'),pagesBase).href;});
     }
-    const bundledDocuments=[
-      ['Final project report','project-report-final/IndoorPulse_Final_Report_Submission.pdf'],
-      ['Final presentation','final-ppt/IndoorPulse_Final_Presentation.pdf'],
-      ['Planning and architecture deck','assets/docs/Indoor_Pulse_PDF.pdf'],
-      ['Milestone plan','assets/docs/Milestone Plan.pdf'],
-      ['Project proposal and feasibility report','assets/docs/Project Proposal & Feasibility Report.pdf']
-    ].map(([title,path])=>({title,file_url:new URL(path,pagesBase).href,filename:path.split('/').pop(),repository:true}));
+    const fallbackDeck=new URL('assets/docs/Indoor_Pulse_PDF.pdf',pagesBase).href;
     let globalRecords=[],selectedDocument='',documentChosen=false,archiveRequest=0;
     function assetType(item) {
       const names=[item.filename,new URL(item.file_url,pagesBase).pathname].filter(Boolean);
@@ -2290,34 +2290,40 @@
       if (assetType(item)!=='pdf') return;
       documentChosen ||= userChoice;
       selectedDocument=item.file_url;
-      const el=id=>document.getElementById(id);
-      el('documentPicker').value=String(index);
-      el('docViewerTitle').textContent=item.title;
-      el('docViewerVersion').textContent=item.version || 'Repository copy';
-      el('docViewerDate').textContent=item.presentation_date || '';
-      if (el('docViewer').getAttribute('src')!==item.file_url) el('docViewer').src=item.file_url;
-      el('docViewer').title=item.title;
-      el('docSourceText').textContent=item.filename || item.title;
-      el('pdfOpenLink').href=el('pdfDownloadLink').href=item.file_url;
-      if (scroll) el('presentation').scrollIntoView({behavior:'smooth'});
+      document.getElementById('documentPicker').value=String(index);
+      displayPreview(item);
+      if (scroll) document.getElementById('presentation').scrollIntoView({behavior:'smooth'});
     }
-    function showArchive(records,notice) {
+    function displayPreview(item, fallback=false) {
+      const el=id=>document.getElementById(id);
+      const src=item?.file_url || (fallback ? fallbackDeck : 'about:blank');
+      for (const part of document.querySelectorAll('#presentationViewer .viewer-header,#presentationViewer .iframe-container,#presentationViewer .viewer-actions'))
+        part.hidden=!item && !fallback;
+      const frame=el('docViewer');
+      if(frame.getAttribute('src')!==src) frame.src=src;
+      frame.title=item?.title || 'Backup preview';
+      el('docViewerTitle').textContent=frame.title;
+      el('docViewerVersion').hidden=!item;
+      el('docViewerVersion').textContent=item?.version || 'EC2 upload';
+      el('docViewerDate').textContent=item?.presentation_date || '';
+      el('docSourceText').textContent=item?.filename || item?.title || 'GitHub backup';
+      for(const id of ['pdfOpenLink','pdfDownloadLink']) {
+        const link=el(id);link.hidden=!item;
+        if(item) link.href=item.file_url;else link.removeAttribute('href');
+      }
+    }
+    function showArchive(records,notice,{loading=false,failed=false}={}) {
       const picker=document.getElementById('documentPicker'),body=document.getElementById('version-archive-body');
-      globalRecords=[...records,...bundledDocuments.filter(doc=>!records.some(r=>r.file_url===doc.file_url))];
+      globalRecords=records;
       picker.replaceChildren();body.replaceChildren();
-      const groups=new Map();
       globalRecords.forEach((item,index)=>{
         const type=assetType(item);
         if (type==='pdf') {
-          const group=item.repository ? 'Project documents' : 'Archive uploads';
-          if (!groups.has(group)) {
-            const optgroup=document.createElement('optgroup');optgroup.label=group;picker.append(optgroup);groups.set(group,optgroup);
-          }
           const label=[item.title,item.version,item.presentation_date].filter(Boolean).join(' · ');
-          groups.get(group).append(new Option(label,String(index)));
+          picker.add(new Option(label,String(index)));
         }
         const row=body.insertRow();
-        for (const value of [item.version || 'Repository',item.title,item.presentation_date || '—',item.change_summary || 'Repository copy'])
+        for (const value of [item.version || '—',item.title,item.presentation_date || '—',item.change_summary || '—'])
           row.insertCell().textContent=value;
         const cell=row.insertCell();
         if (type==='file') {
@@ -2330,12 +2336,19 @@
         }
       });
       const keep=documentChosen ? globalRecords.findIndex(item=>item.file_url===selectedDocument) : -1;
-      loadIntoViewer(keep>=0 ? keep : globalRecords.findIndex(item=>assetType(item)==='pdf'),false,false);
+      const hasPdfs=picker.options.length>0;
+      picker.disabled=picker.hidden=!hasPdfs;
+      if (hasPdfs) loadIntoViewer(keep>=0 ? keep : Number(picker.options[0].value),false,false);
+      else {selectedDocument='';documentChosen=false;displayPreview(null,failed);}
+      const status=document.getElementById('pickerNotice');
+      status.textContent=loading ? 'Loading uploaded PDFs…' : failed && !hasPdfs ? 'Archive unavailable. Showing the backup preview.' :
+        !hasPdfs ? 'No PDFs have been uploaded.' : notice;
+      status.hidden=!status.textContent;
       document.getElementById('archiveStatus').textContent=notice;
     }
     async function fetchServerRecords() {
       const sequence=++archiveRequest;
-      if (!globalRecords.length) showArchive([],'Loading archive uploads…');
+      if (!globalRecords.length) showArchive([],'Loading archive uploads…',{loading:true});
       try {
         const res=await fetch(API_BASE_URL+'/api/presentations',{signal:AbortSignal.timeout(10000)});
         if (!res.ok) throw new Error('Archive unavailable');
@@ -2350,12 +2363,11 @@
             return [{...item,file_url:url.href,title:item.title || item.filename || 'Archive upload'}];
           } catch {return [];}
         });
-        showArchive(records,records.length ? '' : 'No archive uploads yet. Project documents are available below.');
+        showArchive(records,records.length ? '' : 'No archive uploads yet.');
       } catch {
         if (sequence!==archiveRequest) return;
-        const previous=globalRecords.filter(item=>!item.repository);
-        showArchive(previous,previous.length ? 'Archive refresh unavailable. Showing the last loaded list.' :
-          'Archive service unavailable. You can still open the project documents.');
+        showArchive(globalRecords,globalRecords.length ? 'Archive refresh unavailable. Showing the last loaded list.' :
+          'EC2 archive unavailable.',{failed:true});
       }
     }
 
